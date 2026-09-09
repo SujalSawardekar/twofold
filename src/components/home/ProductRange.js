@@ -32,15 +32,15 @@ export default function ProductRange() {
               bound, centre stitched, and glue bound — manufactured for 
               high-volume global markets.
             </p>
-            <Link href="#notebook-shelf" className={styles.cta}>
-              Explore 3D Notebook Shelf →
+            <Link href="/products" className={styles.cta}>
+              View All Products →
             </Link>
           </div>
 
           {/* Right: product gallery */}
           <div className={styles.gallery}>
             {products.map((p) => (
-              <Link key={p.index} href="#notebook-shelf" className={`${styles.item} ${styles[p.span]}`}>
+              <Link key={p.index} href="/products" className={`${styles.item} ${styles[p.span]}`}>
                 <div className={styles.imageWrap}>
                   <Image 
                     src={p.image} 

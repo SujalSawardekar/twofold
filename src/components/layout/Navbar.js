@@ -9,13 +9,11 @@ import { useSound } from '@/providers/SoundEffectsProvider';
 import styles from './Navbar.module.css';
 
 const NAV_ITEMS = [
-  { index: '01', name: 'Home', path: '#hero' },
-  { index: '02', name: 'Who We Are', path: '#who-we-are' },
-  { index: '03', name: 'Products', path: '#products' },
-  { index: '04', name: 'Quality & Craft', path: '#quality-assurance' },
-  { index: '05', name: 'Global Reach', path: '#global-reach' },
-  { index: '06', name: 'Insights', path: '#insights' },
-  { index: '07', name: 'Contact Us', path: '#footer' },
+  { index: '01', name: 'Home', path: '/' },
+  { index: '02', name: 'About Us', path: '/about-us' },
+  { index: '03', name: 'Products', path: '/products' },
+  { index: '04', name: 'Blog & Insights', path: '/blog' },
+  { index: '05', name: 'Contact Us', path: '/contact-us' },
 ];
 
 export default function Navbar() {

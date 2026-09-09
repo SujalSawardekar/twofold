@@ -97,23 +97,22 @@ export default function Footer() {
               <div className={styles.linkGroup}>
                 <h4 className={styles.groupHeading}>Sitemap</h4>
                 <ul className={styles.linkList}>
-                  <li><Link href="#hero" className={styles.footerLink}>Home</Link></li>
-                  <li><Link href="#who-we-are" className={styles.footerLink}>Who We Are</Link></li>
-                  <li><Link href="#why-twofold" className={styles.footerLink}>Why Twofold</Link></li>
-                  <li><Link href="#products" className={styles.footerLink}>Products</Link></li>
-                  <li><Link href="#quality-assurance" className={styles.footerLink}>Quality & Craft</Link></li>
-                  <li><Link href="#insights" className={styles.footerLink}>Insights</Link></li>
+                  <li><Link href="/" className={styles.footerLink}>Home</Link></li>
+                  <li><Link href="/about-us" className={styles.footerLink}>About Us</Link></li>
+                  <li><Link href="/products" className={styles.footerLink}>Products</Link></li>
+                  <li><Link href="/blog" className={styles.footerLink}>Blog & Insights</Link></li>
+                  <li><Link href="/contact-us" className={styles.footerLink}>Contact Us</Link></li>
                 </ul>
               </div>
 
               <div className={styles.linkGroup}>
                 <h4 className={styles.groupHeading}>Products</h4>
                 <ul className={styles.linkList}>
-                  <li><Link href="#notebook-shelf" className={styles.footerLink}>Exercise Books</Link></li>
-                  <li><Link href="#notebook-shelf" className={styles.footerLink}>Spiral Bound</Link></li>
-                  <li><Link href="#notebook-shelf" className={styles.footerLink}>Wire-O Bound</Link></li>
-                  <li><Link href="#notebook-shelf" className={styles.footerLink}>Hardcover Journals</Link></li>
-                  <li><Link href="#notebook-shelf" className={styles.footerLink}>Perfect Bound</Link></li>
+                  <li><Link href="/products" className={styles.footerLink}>Exercise Books</Link></li>
+                  <li><Link href="/products" className={styles.footerLink}>Spiral Bound</Link></li>
+                  <li><Link href="/products" className={styles.footerLink}>Wire-O Bound</Link></li>
+                  <li><Link href="/products" className={styles.footerLink}>Hardcover Journals</Link></li>
+                  <li><Link href="/products" className={styles.footerLink}>Perfect Bound</Link></li>
                 </ul>
               </div>
 

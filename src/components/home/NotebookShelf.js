@@ -135,10 +135,10 @@ export default function NotebookShelf() {
             </p>
 
             <div className={styles.ctas}>
-              <Link href="#products" className={styles.btnPrimary}>
+              <Link href="/products" className={styles.btnPrimary}>
                 Explore Range
               </Link>
-              <Link href="#footer" className={styles.btnGhost}>
+              <Link href="/contact-us" className={styles.btnGhost}>
                 Request Samples
               </Link>
             </div>
