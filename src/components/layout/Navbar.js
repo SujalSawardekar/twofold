@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { gsap } from '@/lib/gsap';
+import { useSound } from '@/providers/SoundEffectsProvider';
 import styles from './Navbar.module.css';
 
 const NAV_ITEMS = [
@@ -20,6 +21,8 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  const { playDrawerOpen, playDrawerClose } = useSound();
 
   const pathname = usePathname();
   const lastScrollY = useRef(0);
@@ -118,8 +121,8 @@ export default function Navbar() {
           <Image
             src="/Logo/Two Fold.png"
             alt="Twofold"
-            width={130}
-            height={42}
+            width={110}
+            height={34}
             className={styles.brandLogoImg}
             priority
           />
@@ -128,9 +131,18 @@ export default function Navbar() {
         {/* Right: Unified 2-Line Morphing Toggle Button (No title/text) */}
         <button
           className={`${styles.menuToggle} ${isOpen ? styles.menuToggleOpen : ''}`}
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => {
+            if (isOpen) {
+              playDrawerClose();
+              setIsOpen(false);
+            } else {
+              playDrawerOpen();
+              setIsOpen(true);
+            }
+          }}
           aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={isOpen}
+          suppressHydrationWarning
         >
           <span className={styles.line} />
           <span className={styles.line} />
@@ -153,7 +165,10 @@ export default function Navbar() {
                 <Link
                   href={item.path}
                   className={styles.navLink}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    playDrawerClose();
+                    setIsOpen(false);
+                  }}
                 >
                   <span className={styles.navLinkIndex}>{item.index}</span>
                   <span className={styles.navLinkText}>{item.name}</span>

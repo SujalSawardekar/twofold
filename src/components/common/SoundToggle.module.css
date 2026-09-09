@@ -1,0 +1,133 @@
+/* ══════════════════════════════════════════════════════
+   SOUND TOGGLE — Floating Tactile Audio Controller Pill
+   ══════════════════════════════════════════════════════ */
+
+.wrapper {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 180;
+  pointer-events: auto;
+}
+
+.toggleBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(17, 23, 45, 0.12);
+  border-radius: 9999px;
+  padding: 7px 14px 7px 11px;
+  color: #11172D;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(17, 23, 45, 0.08);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.25, 1);
+  outline: none;
+  user-select: none;
+}
+
+.toggleBtn:hover {
+  background: #FFFFFF;
+  border-color: #C9A24A;
+  color: #C9A24A;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(17, 23, 45, 0.14);
+}
+
+.toggleBtn:active {
+  transform: translateY(0);
+}
+
+.active {
+  color: #11172D;
+}
+
+.muted {
+  color: #8E99A4;
+  opacity: 0.78;
+}
+
+.muted:hover {
+  color: #11172D;
+  opacity: 1;
+}
+
+.icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.activeIconWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.label {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Subtle Animated Micro-Equalizer Bars */
+.equalizer {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 10px;
+  padding-left: 2px;
+}
+
+.bar {
+  width: 2px;
+  background-color: #C9A24A;
+  border-radius: 1px;
+  animation: barPulse 1.2s ease-in-out infinite alternate;
+}
+
+.bar:nth-child(1) {
+  height: 4px;
+  animation-delay: 0s;
+}
+
+.bar:nth-child(2) {
+  height: 9px;
+  animation-delay: 0.25s;
+}
+
+.bar:nth-child(3) {
+  height: 6px;
+  animation-delay: 0.5s;
+}
+
+@keyframes barPulse {
+  0% {
+    height: 3px;
+    opacity: 0.5;
+  }
+  100% {
+    height: 10px;
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .wrapper {
+    bottom: 18px;
+    left: 18px;
+  }
+
+  .toggleBtn {
+    padding: 6px 12px 6px 10px;
+  }
+
+  .label {
+    font-size: 9px;
+  }
+}

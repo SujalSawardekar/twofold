@@ -1,0 +1,427 @@
+/* ============================================================
+   TWOFOLD — Editorial Contact & Enquiry Experience
+   Split composition: Direct communication on Left,
+   Premium thin-line order specification form on Right.
+   ============================================================ */
+
+.enquirySection {
+  position: relative;
+  background-color: #FFFFFF;
+  padding: clamp(4.5rem, 8vw, 8rem) 0;
+  border-bottom: 1px solid rgba(17, 23, 45, 0.08);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max, 1400px);
+  margin: 0 auto;
+  padding: 0 var(--gutter, clamp(1.25rem, 3vw, 3rem));
+}
+
+.splitGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+}
+
+@media (min-width: 960px) {
+  .splitGrid {
+    grid-template-columns: 42fr 58fr;
+    align-items: flex-start;
+  }
+}
+
+/* ── LEFT: Direct Communication ("START A CONVERSATION") ── */
+.directCol {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+.sectionKicker {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: var(--text-label, 0.75rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #C9A24A; /* Restrained Gold */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.sectionKicker::after {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background-color: #C9A24A;
+  opacity: 0.6;
+}
+
+.columnHeading {
+  font-family: var(--font-display, 'The youngest serif', Georgia, serif);
+  font-size: clamp(2.2rem, 3.8vw, 3.25rem);
+  font-weight: 600;
+  line-height: 1.12;
+  color: #11172D;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.25rem 0;
+}
+
+.facilityBlock {
+  border-bottom: 1px solid rgba(17, 23, 45, 0.08);
+  padding-bottom: 2rem;
+}
+
+.facilityLabel {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8E99A4;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.facilityName {
+  font-family: var(--font-display, 'The youngest serif', Georgia, serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #11172D;
+  line-height: 1.3;
+  margin: 0 0 0.5rem 0;
+}
+
+.facilityAddress {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 1rem;
+  color: #555D68;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Channels List */
+.channelsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.channelItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.channelLabel {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8E99A4;
+}
+
+.channelLink {
+  font-family: var(--font-display, 'The youngest serif', Georgia, serif);
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+  color: #11172D;
+  text-decoration: none;
+  line-height: 1.4;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.channelLink:hover {
+  color: #C9A24A;
+  transform: translateX(3px);
+}
+
+/* WhatsApp Direct CTA Card */
+.whatsappCard {
+  background: #FAF8F5;
+  border: 1px solid rgba(17, 23, 45, 0.08);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.whatsappHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.whatsappIcon {
+  width: 22px;
+  height: 22px;
+  color: #25D366;
+}
+
+.whatsappTitle {
+  font-family: var(--font-display, 'The youngest serif', Georgia, serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #11172D;
+  margin: 0;
+}
+
+.whatsappText {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.875rem;
+  color: #555D68;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.whatsappButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #11172D;
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1.5px solid #11172D;
+  padding-bottom: 2px;
+  align-self: flex-start;
+  transition: all 0.2s ease;
+}
+
+.whatsappButton:hover {
+  color: #C9A24A;
+  border-color: #C9A24A;
+}
+
+/* ── RIGHT: Editorial Order Form ("ENQUIRE WITH TWOFOLD") ── */
+.formCol {
+  background: #FFFFFF;
+}
+
+.formHeader {
+  margin-bottom: clamp(2rem, 3vw, 2.5rem);
+}
+
+.formSubtitle {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.9375rem;
+  color: #555D68;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.documentForm {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 2.5vw, 2.25rem);
+}
+
+.formRowTwo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 2vw, 2rem);
+}
+
+@media (min-width: 640px) {
+  .formRowTwo {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.formRowThree {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 2vw, 2rem);
+}
+
+@media (min-width: 640px) {
+  .formRowThree {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* Minimal Editorial Underline Input Field */
+.inputGroup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8E99A4;
+  margin-bottom: 0.35rem;
+  transition: color 0.2s ease;
+}
+
+.inputGroup:focus-within .label {
+  color: #C9A24A;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid rgba(17, 23, 45, 0.18);
+  border-radius: 0;
+  padding: 0.75rem 0;
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 1rem;
+  color: #11172D;
+  outline: none;
+  transition: border-color 0.3s ease, color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #B8C0C8;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-bottom-color: #C9A24A;
+}
+
+/* Animated Golden Focus Rule */
+.focusBorderLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #C9A24A;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.inputGroup:focus-within .focusBorderLine {
+  width: 100%;
+}
+
+.select {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2311172D' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.25rem center;
+  padding-right: 1.5rem;
+}
+
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Form Actions */
+.formActionArea {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+@media (min-width: 640px) {
+  .formActionArea {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.disclaimerText {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.75rem;
+  color: #8E99A4;
+  line-height: 1.5;
+  max-width: 38ch;
+}
+
+/* Submission Confirmation Card */
+.confirmationBox {
+  background: #FAF8F5;
+  border: 1px solid rgba(201, 162, 74, 0.3);
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  animation: fadeInConfirm 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInConfirm {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.confirmIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(201, 162, 74, 0.12);
+  color: #C9A24A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirmHeading {
+  font-family: var(--font-display, 'The youngest serif', Georgia, serif);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #11172D;
+  margin: 0;
+}
+
+.confirmMessage {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.9375rem;
+  color: #555D68;
+  line-height: 1.65;
+  max-width: 46ch;
+  margin: 0;
+}
+
+.newEnquiryBtn {
+  margin-top: 0.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid #11172D;
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #11172D;
+  cursor: pointer;
+  padding-bottom: 2px;
+  transition: all 0.2s ease;
+}
+
+.newEnquiryBtn:hover {
+  color: #C9A24A;
+  border-color: #C9A24A;
+}

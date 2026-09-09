@@ -139,13 +139,27 @@
   will-change: transform, opacity;
 }
 
+/* ── Bottom Action Row: Aligns CTAs (Left) and Slide Controls (Right) Perfectly ── */
+.bottomBar {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: var(--container-max, 1400px);
+  margin: 0 auto;
+  padding: clamp(1.2rem, 2.5vh, 2.2rem) clamp(24px, 4vw, 56px) 0 clamp(24px, 4vw, 56px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  box-sizing: border-box;
+}
+
 /* CTAs */
 .ctas {
   display: flex;
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
-  padding-top: 0.5rem;
 }
 
 .ctaPrimary {
@@ -168,7 +182,9 @@
   text-transform: uppercase;
   color: var(--color);
   background: transparent;
-  padding: 14px 28px;
+  height: 44px;
+  padding: 0 26px;
+  box-sizing: border-box;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -236,7 +252,9 @@
   text-transform: uppercase;
   color: var(--color);
   background: transparent;
-  padding: 14px 28px;
+  height: 44px;
+  padding: 0 26px;
+  box-sizing: border-box;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -448,15 +466,14 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-/* ── Bottom Right Slide Controls ── */
+/* ── Slide Controls ── */
 .controls {
-  position: absolute;
-  bottom: 28px;
-  right: clamp(24px, 4vw, 56px);
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
   z-index: 10;
+  flex-shrink: 0;
 }
 
 .arrowBtn {
@@ -466,13 +483,14 @@
   border-radius: 6px;
   background: #FFFFFF;
   border: 2px solid var(--color);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   color: var(--color);
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
   z-index: 1;
   transition: color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
   box-shadow: 0 2px 8px rgba(17, 23, 45, 0.06);
@@ -573,8 +591,12 @@
   .slot2 { left: 36%; top: 12%; transform: rotate(7deg); }
   .slot3 { left: 18%; top: 32%; transform: rotate(-2deg); }
 
+  .bottomBar {
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
   .controls {
-    bottom: 16px;
-    right: 20px;
+    margin-left: auto;
   }
 }

@@ -1,7 +1,9 @@
 import { Playfair_Display, Inter } from 'next/font/google';
 import SmoothScrollProvider from '@/providers/SmoothScrollProvider';
+import SoundEffectsProvider from '@/providers/SoundEffectsProvider';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import SoundToggle from '@/components/common/SoundToggle';
 import './globals.css';
 
 const playfairDisplay = Playfair_Display({
@@ -36,11 +38,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${playfairDisplay.variable} ${inter.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <SmoothScrollProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </SmoothScrollProvider>
+        <SoundEffectsProvider>
+          <SmoothScrollProvider>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+            <SoundToggle />
+          </SmoothScrollProvider>
+        </SoundEffectsProvider>
       </body>
     </html>
   );

@@ -2,12 +2,16 @@ import Link from 'next/link';
 import styles from './ArticleCard.module.css';
 
 export default function ArticleCard({ category, title, excerpt, imageSrc, href = '#' }) {
+  const hasValidImage = typeof imageSrc === 'string' && imageSrc.trim() !== '';
+
   return (
     <Link href={href} className={styles.card}>
-      <div className={styles.imageWrapper}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={imageSrc} alt={title} className={styles.image} loading="lazy" />
-      </div>
+      {hasValidImage && (
+        <div className={styles.imageWrapper}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={imageSrc} alt={title} className={styles.image} loading="lazy" />
+        </div>
+      )}
       <div className={styles.content}>
         <div className={styles.category}>{category}</div>
         <h3 className={styles.title}>{title}</h3>

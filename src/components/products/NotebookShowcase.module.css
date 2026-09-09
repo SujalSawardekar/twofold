@@ -1,0 +1,496 @@
+/* ============================================================
+   TWOFOLD — Full-Bleed Pinned Editorial Showcase
+   - 100vh full-screen edge-to-edge coverage (zero dark bottom peek)
+   - Left (55%): Full-bleed art-directed photography
+   - Right (45%): Full-bleed editorial typography
+   - Center Seam: Up/Down arrows & circular countdown progress rings
+   - Single consistent primary CTA button (matching site design system)
+   - Scroll-stuck pinning that releases to the footer at the end
+   ============================================================ */
+
+.scrollWrapper {
+  position: relative;
+  width: 100%;
+  background-color: #FAF8F5;
+}
+
+/* Full Viewport Stage (Zero gaps up, down, left, right) */
+.fullBleedShowcase {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  background-color: #FAF8F5;
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  padding-top: 84px; /* Clearance for fixed transparent navbar */
+  box-sizing: border-box;
+}
+
+@media (min-width: 1024px) {
+  .fullBleedShowcase {
+    grid-template-columns: 55fr 45fr;
+  }
+}
+
+/* ── Left Spread: Full-Bleed Photography Stage (~55%) ── */
+.visualSpread {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, #F5F1E9 0%, #EAE5DC 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: clamp(1.5rem, 4vw, 4rem);
+  box-sizing: border-box;
+}
+
+@media (max-width: 1023px) {
+  .visualSpread {
+    min-height: 360px;
+  }
+}
+
+/* Layered product slides for zero-lag, butter-smooth crossfade */
+.productSlide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.5rem, 4vw, 4rem);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(24px) scale(0.97);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.slideActive {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  z-index: 2;
+}
+
+.slidePast {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-24px) scale(0.97);
+  z-index: 1;
+}
+
+.slideFuture {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(24px) scale(0.97);
+  z-index: 1;
+}
+
+/* Central Main Product Image */
+.mainImageContainer {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 4 / 3.25;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px -15px rgba(17, 23, 45, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background-color: #FFFFFF;
+  z-index: 1;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 1400px) {
+  .mainImageContainer {
+    max-width: 540px;
+    aspect-ratio: 4 / 3.2;
+  }
+}
+
+.mainProductImg {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mainImageContainer:hover .mainProductImg {
+  transform: scale(1.03);
+}
+
+/* Secondary Floating Images (Clean, Uncluttered, No Badges) */
+.floatingDetail {
+  position: absolute;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 2.5px solid #FFFFFF;
+  box-shadow: 0 16px 36px -8px rgba(17, 23, 45, 0.18);
+  z-index: 3;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s ease,
+              opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floatingDetail:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 24px 44px -6px rgba(17, 23, 45, 0.26);
+}
+
+.detailTopRight {
+  top: 10%;
+  right: 8%;
+  width: clamp(110px, 14vw, 170px);
+  aspect-ratio: 1 / 1;
+}
+
+@media (max-width: 767px) {
+  .detailTopRight {
+    top: 6%;
+    right: 5%;
+    width: 85px;
+  }
+}
+
+.detailBottomLeft {
+  bottom: 10%;
+  left: 8%;
+  width: clamp(120px, 15vw, 185px);
+  aspect-ratio: 4 / 3;
+}
+
+@media (max-width: 767px) {
+  .detailBottomLeft {
+    bottom: 6%;
+    left: 5%;
+    width: 95px;
+  }
+}
+
+.floatingDetailImg {
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Center Divider Navigation Seam ── */
+.dividerNavigation {
+  position: absolute;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Desktop: positioned directly over the split seam between left (55%) and right (45%) */
+@media (min-width: 1024px) {
+  .dividerNavigation {
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.9rem 0.55rem;
+    background: #FFFFFF;
+    border: 1px solid rgba(17, 23, 45, 0.1);
+    border-radius: 9999px;
+    box-shadow: 0 12px 35px rgba(17, 23, 45, 0.12);
+  }
+}
+
+/* Tablet & Mobile: horizontal row between visual and info */
+@media (max-width: 1023px) {
+  .dividerNavigation {
+    position: relative;
+    width: 100%;
+    background: #FFFFFF;
+    border-top: 1px solid rgba(17, 23, 45, 0.08);
+    border-bottom: 1px solid rgba(17, 23, 45, 0.08);
+    padding: 0.75rem 1rem;
+    flex-direction: row;
+    gap: 1rem;
+  }
+}
+
+.navIndicators {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+@media (min-width: 1024px) {
+  .navIndicators {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+}
+
+/* Navigation Dot Button */
+.navDot {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navDotCenter {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #B8C0C8;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
+}
+
+.navDot:hover .navDotCenter {
+  background-color: #11172D;
+  transform: scale(1.3);
+}
+
+/* Active Dot with Gold Core */
+.navDotActive .navDotCenter {
+  background-color: #C9A24A;
+  transform: scale(1.15);
+}
+
+/* Animated Circular Progress Ring for Active Product Countdown */
+.progressRingSvg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.progressRingTrack {
+  fill: none;
+  stroke: rgba(201, 162, 74, 0.25);
+  stroke-width: 2.2;
+}
+
+.progressRingFill {
+  fill: none;
+  stroke: #C9A24A;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 0.05s linear;
+}
+
+/* Tooltip on Hover */
+.navTooltip {
+  position: absolute;
+  left: 125%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #11172D;
+  color: #FFFFFF;
+  padding: 4px 9px;
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 30;
+}
+
+@media (min-width: 1024px) {
+  .navDot:hover .navTooltip {
+    opacity: 1;
+    transform: translateY(-50%) translateX(4px);
+  }
+}
+
+@media (max-width: 1023px) {
+  .navTooltip {
+    display: none;
+  }
+}
+
+/* ── Enlarged Prominent Arrow Buttons with Long Lines ── */
+.arrowButton {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid rgba(17, 23, 45, 0.16);
+  color: #11172D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.arrowButton:hover:not(:disabled) {
+  background: #11172D;
+  color: #FAF8F5;
+  border-color: #11172D;
+  transform: scale(1.08);
+}
+
+.arrowButton:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.arrowSvg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* ── Right Spread: Full-Bleed Product Information (~45%) ── */
+.infoSpread {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 5vw, 5rem);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1024px) {
+  .infoSpread {
+    padding-left: clamp(3rem, 6vw, 6rem);
+    padding-right: clamp(3rem, 6vw, 6rem);
+  }
+}
+
+/* Layered text slides for seamless cross-fade */
+.textSlide {
+  position: absolute;
+  inset: clamp(2rem, 5vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+@media (min-width: 1024px) {
+  .textSlide {
+    left: clamp(3rem, 6vw, 6rem);
+    right: clamp(3rem, 6vw, 6rem);
+    top: 0;
+    bottom: 0;
+  }
+}
+
+.textActive {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  z-index: 2;
+}
+
+.textPast {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-20px);
+  z-index: 1;
+}
+
+.textFuture {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+  z-index: 1;
+}
+
+/* Product Index Counter (01 / 06) */
+.indexRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.currentNumber {
+  font-family: var(--font-display, 'The youngest serif', Georgia, serif);
+  font-size: clamp(1.75rem, 2.5vw, 2.35rem);
+  font-weight: 700;
+  color: #C9A24A; /* Restrained Gold */
+  line-height: 1;
+}
+
+.slashDivider {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 1.1rem;
+  color: #8E99A4;
+}
+
+.totalNumber {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #8E99A4;
+}
+
+.categoryTag {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8E99A4;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+/* Big Display Product Title in The Youngest Serif */
+.productHeading {
+  font-family: var(--font-display, 'The youngest serif', Georgia, serif);
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: #11172D;
+  letter-spacing: -0.025em;
+  margin: 0 0 1.25rem 0;
+}
+
+/* Short confirmed product description */
+.productDescription {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: clamp(1rem, 1.3vw, 1.1875rem);
+  color: #3B424E;
+  line-height: 1.7;
+  max-width: 44ch;
+  margin: 0 0 2.5rem 0;
+}
+
+/* ── Single Primary CTA Button (Consistent with Twofold Button) ── */
+.actionGroup {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}

@@ -10,42 +10,50 @@ export default function BlogPage() {
     {
       category: 'Manufacturing',
       title: 'How Notebooks Are Manufactured: Inside Our Palghar Facility',
-      excerpt: 'A behind-the-scenes look at the precision and scale involved in bulk notebook production.'
+      excerpt: 'A behind-the-scenes look at the precision and scale involved in bulk notebook production.',
+      imageSrc: '/images/editorial/facility.jpg'
     },
     {
       category: 'Sourcing Guide',
       title: 'Spiral vs Double Wire vs Glue Bound: Choosing the Right Notebook for Your Market',
-      excerpt: 'Understanding binding types to make informed decisions for your stationery distribution.'
+      excerpt: 'Understanding binding types to make informed decisions for your stationery distribution.',
+      imageSrc: '/images/editorial/notebook-detail.jpg'
     },
     {
       category: 'Quality',
       title: 'What Is AQL, and Why It Matters When Sourcing Stationery in Bulk',
-      excerpt: 'Learn about Acceptance Quality Level inspections and how they ensure reliable shipments.'
+      excerpt: 'Learn about Acceptance Quality Level inspections and how they ensure reliable shipments.',
+      imageSrc: '/images/editorial/aql-inspection.jpg'
     },
     {
       category: 'Export & Logistics',
       title: 'Exporting from India: A Practical Guide for International Stationery Importers',
-      excerpt: 'Key considerations when sourcing and importing paper products from Indian manufacturers.'
+      excerpt: 'Key considerations when sourcing and importing paper products from Indian manufacturers.',
+      imageSrc: '/images/editorial/serve-importers.jpg'
     },
     {
       category: 'Sourcing Guide',
       title: "Sourcing Notebooks for Schools: A Buyer's Guide",
-      excerpt: 'Essential factors to consider when ordering educational notebooks in large volumes.'
+      excerpt: 'Essential factors to consider when ordering educational notebooks in large volumes.',
+      imageSrc: '/images/editorial/serve-education.jpg'
     },
     {
       category: 'Export & Logistics',
       title: "Why Nhava Sheva (JNPT) Is India's Gateway for Paper Exports",
-      excerpt: 'How strategic port access streamlines global shipping for stationery products.'
+      excerpt: 'How strategic port access streamlines global shipping for stationery products.',
+      imageSrc: '/images/editorial/hero-factory.jpg'
     },
     {
       category: 'Sustainability',
       title: 'Sustainable Paper Packaging: Trends Shaping the Stationery Industry',
-      excerpt: 'Exploring eco-friendly materials and their growing importance in modern packaging.'
+      excerpt: 'Exploring eco-friendly materials and their growing importance in modern packaging.',
+      imageSrc: '/images/editorial/hero-journal.jpg'
     },
     {
       category: 'Industry',
       title: 'Building Long-Term Supplier Partnerships in the Stationery Trade',
-      excerpt: 'The benefits of choosing a reliable manufacturing partner for consistent growth.'
+      excerpt: 'The benefits of choosing a reliable manufacturing partner for consistent growth.',
+      imageSrc: '/images/editorial/serve-brands.jpg'
     }
   ];
 
@@ -67,7 +75,14 @@ export default function BlogPage() {
         <div className="container">
           <div className={styles.featuredArticle}>
             <Link href="#" className={styles.featuredLink}>
-              <div className={styles.featuredImage} />
+              <div 
+                className={styles.featuredImage}
+                style={{
+                  backgroundImage: `url(${featuredArticle.imageSrc})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}
+              />
               <div className={styles.featuredContent}>
                 <div className={styles.featuredCategory}>{featuredArticle.category}</div>
                 <h2 className={styles.featuredTitle}>{featuredArticle.title}</h2>
@@ -83,7 +98,7 @@ export default function BlogPage() {
                 category={article.category}
                 title={article.title}
                 excerpt={article.excerpt}
-                imageSrc=""
+                imageSrc={article.imageSrc}
                 href="#"
               />
             ))}

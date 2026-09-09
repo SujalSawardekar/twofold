@@ -372,33 +372,6 @@ export default function Hero() {
             {activeSlide.subtext}
           </p>
 
-          <div className={styles.ctas}>
-            <Link href="/products" className={styles.ctaPrimary}>
-              Explore Our Products
-              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
-                <path
-                  d="M3 7.5h9M9 4l3.5 3.5L9 11"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Link>
-
-            <Link href="/contact-us" className={styles.ctaSecondary}>
-              Partner With Us
-              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
-                <path
-                  d="M3 7.5h9M9 4l3.5 3.5L9 11"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Link>
-          </div>
         </div>
 
         {/* ─── RIGHT: 3 Overlapping Fanned Product Cards ─── */}
@@ -434,39 +407,71 @@ export default function Hero() {
 
       </div>
 
-      {/* ── Bottom Right Circular Slide Nav Arrows ── */}
-      <div className={styles.controls} aria-label="Slide Controls">
-        <button
-          className={styles.arrowBtn}
-          onClick={handlePrev}
-          aria-label="Previous Slide"
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path
-              d="M10 13L5 8L10 3"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+      {/* ── Unified Action Row: CTAs (Left) + Slide Controls (Right) Aligned on Same Baseline ── */}
+      <div className={styles.bottomBar}>
+        <div className={styles.ctas}>
+          <Link href="/products" className={styles.ctaPrimary}>
+            Explore Our Products
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+              <path
+                d="M3 7.5h9M9 4l3.5 3.5L9 11"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
 
-        <button
-          className={styles.arrowBtn}
-          onClick={handleNext}
-          aria-label="Next Slide"
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path
-              d="M6 3L11 8L6 13"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+          <Link href="/contact-us" className={styles.ctaSecondary}>
+            Partner With Us
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+              <path
+                d="M3 7.5h9M9 4l3.5 3.5L9 11"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
+        </div>
+
+        <div className={styles.controls} aria-label="Slide Controls">
+          <button
+            className={styles.arrowBtn}
+            onClick={handlePrev}
+            aria-label="Previous Slide"
+            data-sound="slide"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path
+                d="M10 13L5 8L10 3"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+
+          <button
+            className={styles.arrowBtn}
+            onClick={handleNext}
+            aria-label="Next Slide"
+            data-sound="slide"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path
+                d="M6 3L11 8L6 13"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </section>
   );

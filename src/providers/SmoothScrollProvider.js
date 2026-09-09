@@ -18,6 +18,9 @@ export default function SmoothScrollProvider({ children }) {
       touchMultiplier: 1.5,
     });
     lenisRef.current = lenis;
+    if (typeof window !== 'undefined') {
+      window.lenis = lenis;
+    }
 
     lenis.on('scroll', ScrollTrigger.update);
 

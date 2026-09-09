@@ -1,0 +1,223 @@
+/* ============================================================
+   TWOFOLD — Editorial B2B Contact Hero
+   Split composition: Left typography column (~52%),
+   Right large premium stationery craftsmanship visual (~48%).
+   ============================================================ */
+
+.heroSection {
+  position: relative;
+  background-color: #F9FAF5; /* Warm Off-White */
+  color: #11172D; /* Deep Midnight Navy */
+  padding: clamp(6.5rem, 10.5vw, 10.5rem) 0 clamp(4rem, 6.5vw, 6.5rem);
+  border-bottom: 1px solid rgba(17, 23, 45, 0.08);
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 4vw, 3.5rem);
+}
+
+/* ── Split Layout Composition ── */
+.heroSplit {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.75rem, 5vw, 5.5rem);
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .heroSplit {
+    grid-template-columns: 53fr 47fr;
+  }
+}
+
+/* ── Left Column: Editorial Typography ── */
+.textColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  z-index: 2;
+}
+
+/* Small Eyebrow */
+.eyebrowWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: clamp(1.25rem, 2vw, 1.85rem);
+}
+
+.eyebrow {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #C9A24A; /* Restrained Gold Accent */
+}
+
+.eyebrowLine {
+  display: inline-block;
+  width: 36px;
+  height: 1px;
+  background-color: #C9A24A;
+  opacity: 0.7;
+}
+
+/* Main Heading */
+.mainHeading {
+  font-family: var(--font-display, var(--font-heading, 'The Youngest Serif', Georgia, serif));
+  font-size: clamp(2.75rem, 5.4vw, 5.25rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: #11172D; /* Deep Midnight Navy */
+  margin: 0 0 clamp(1.5rem, 2.5vw, 2.25rem) 0;
+  text-transform: none;
+}
+
+.headingAccent {
+  color: #11172D;
+  font-style: italic;
+}
+
+/* Supporting Paragraph */
+.supportingText {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: clamp(1rem, 1.25vw, 1.125rem);
+  line-height: 1.75;
+  color: rgba(17, 23, 45, 0.72);
+  margin: 0 0 clamp(2.25rem, 3.5vw, 3.25rem) 0;
+  max-width: 48ch;
+}
+
+/* Editorial Label Near Bottom */
+.editorialLabelWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(17, 23, 45, 0.1);
+  width: 100%;
+  max-width: 420px;
+}
+
+.editorialDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #C9A24A;
+  flex-shrink: 0;
+}
+
+.editorialLabel {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8A92A6;
+}
+
+/* ── Right Column: Large Premium Visual ── */
+.visualColumn {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.imageFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 4.6;
+  background-color: #EDECE8;
+  overflow: hidden;
+  border: 1px solid rgba(17, 23, 45, 0.08);
+}
+
+.heroImage {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.imageFrame:hover .heroImage {
+  transform: scale(1.03);
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(17, 23, 45, 0) 65%,
+    rgba(17, 23, 45, 0.4) 100%
+  );
+  pointer-events: none;
+}
+
+.imageMetaTag {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #F9FAF5;
+  background-color: rgba(17, 23, 45, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.5rem 0.9rem;
+  width: fit-content;
+}
+
+.metaTagDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #C9A24A;
+  flex-shrink: 0;
+}
+
+/* ── Responsive Adjustments ── */
+@media (max-width: 959px) {
+  .heroSection {
+    padding: clamp(5.5rem, 8vw, 7rem) 0 clamp(3.5rem, 5vw, 4.5rem);
+  }
+
+  .heroSplit {
+    gap: 3rem;
+  }
+
+  .mainHeading {
+    font-size: clamp(2.25rem, 7vw, 3.25rem);
+    line-height: 1.1;
+  }
+
+  .supportingText {
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .imageFrame {
+    aspect-ratio: 16 / 11;
+  }
+}
+
+@media (max-width: 480px) {
+  .imageMetaTag {
+    font-size: 0.625rem;
+    padding: 0.4rem 0.7rem;
+    bottom: 0.85rem;
+    left: 0.85rem;
+  }
+}

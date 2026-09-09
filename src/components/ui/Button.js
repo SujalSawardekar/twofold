@@ -11,6 +11,8 @@ export default function Button({
   hasArrow = false,
   onClick,
   type = 'button',
+  suppressHydrationWarning = true,
+  ...props
 }) {
   const classes = [
     styles.button,
@@ -41,14 +43,20 @@ export default function Button({
 
   if (href) {
     return (
-      <Link href={href} className={classes} onClick={onClick}>
+      <Link href={href} className={classes} onClick={onClick} {...props}>
         {content}
       </Link>
     );
   }
 
   return (
-    <button type={type} className={classes} onClick={onClick}>
+    <button
+      type={type}
+      className={classes}
+      onClick={onClick}
+      suppressHydrationWarning={suppressHydrationWarning}
+      {...props}
+    >
       {content}
     </button>
   );

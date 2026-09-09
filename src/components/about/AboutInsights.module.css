@@ -169,10 +169,10 @@
 }
 
 .postTitle {
-  font-family: var(--font-display, 'The youngest serif', Georgia, serif);
-  font-size: 1.25rem;
-  font-weight: 500;
-  line-height: 1.35;
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.4;
   color: var(--color-navy, #11172D);
   margin: 0;
   transition: color 0.2s ease;

@@ -134,7 +134,7 @@
 }
 
 .statNumber {
-  font-family: var(--font-display, 'Playfair Display', serif);
+  font-family: var(--font-body, 'Gramatika', sans-serif);
   font-size: clamp(1.8rem, 3vw, 2.5rem);
   font-weight: 700;
   color: #11172D;

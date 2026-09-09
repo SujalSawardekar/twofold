@@ -2,7 +2,6 @@
 
 import { useRef } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useGSAP } from '@gsap/react';
 import { gsap } from '@/lib/gsap';
 import styles from './AboutHero.module.css';
@@ -19,17 +18,12 @@ export default function AboutHero() {
 
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    tl.from(`.${styles.breadcrumb}`, {
-      y: 16,
+    tl.from(`.${styles.eyebrow}`, {
+      y: 18,
       opacity: 0,
       duration: 0.6,
       delay: 0.1,
     })
-    .from(`.${styles.eyebrow}`, {
-      y: 18,
-      opacity: 0,
-      duration: 0.6,
-    }, '-=0.4')
     .from(headlineRef.current, {
       y: 40,
       opacity: 0,
@@ -70,13 +64,6 @@ export default function AboutHero() {
   return (
     <section className={styles.section} ref={containerRef} aria-label="About Twofold and Infrastructure">
       <div className={styles.inner}>
-
-        {/* ── BREADCRUMB ── */}
-        <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-          <Link href="/" className={styles.breadLink}>Home</Link>
-          <span className={styles.breadSep}>/</span>
-          <span className={styles.breadCurrent}>About Us</span>
-        </nav>
 
         {/* ── ASYMMETRIC GRID ── */}
         <div className={styles.grid}>
@@ -124,11 +111,6 @@ export default function AboutHero() {
                 className={styles.facilityImg}
               />
               <div className={styles.imageOverlay} />
-            </div>
-
-            <div className={styles.imageCaption}>
-              <span className={styles.captionLine}>PALGHAR CONVERTING FACILITY</span>
-              <span className={styles.captionSub}>STRATEGICALLY PROXIMATE TO JNPT PORT</span>
             </div>
           </div>
 
