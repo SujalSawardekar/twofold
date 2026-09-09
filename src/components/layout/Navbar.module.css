@@ -1,0 +1,274 @@
+/* ═══════════════════════════════════════════════════════════════
+   TWOFOLD — EDITORIAL NAVBAR & DRAWER MENU
+   Edge-to-edge minimal header, official Two Fold logo,
+   headroom scroll dynamics, synchronized 2-line morphing button (= to X).
+   ═══════════════════════════════════════════════════════════════ */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 84px;
+  z-index: 250; /* Sits above the fullscreen drawer (z-index: 200) */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(24px, 4vw, 56px);
+  background: transparent;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.3s ease,
+              backdrop-filter 0.3s ease,
+              border-color 0.3s ease;
+  will-change: transform;
+}
+
+/* Headroom States */
+.headerVisible {
+  transform: translateY(0);
+}
+
+.headerHidden {
+  transform: translateY(-100%);
+}
+
+/* Scrolled Header: Transparent Glassmorphism — Content underneath remains clearly visible */
+.headerScrolled {
+  background: rgba(250, 248, 245, 0.22);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: none;
+  box-shadow: none;
+}
+
+/* Over Dark Sections (e.g. Why Buyers Choose Twofold): Transparent Dark Glass */
+.headerDark.headerScrolled {
+  background: rgba(10, 13, 26, 0.28);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: none;
+  box-shadow: none;
+}
+
+/* Dark Theme Header Elements (Crisp & High Contrast on Dark Backgrounds) */
+.headerDark .brandLogoImg {
+  filter: brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+}
+
+.headerDark .menuToggle {
+  color: #FAF8F5;
+}
+
+.headerDark .menuToggle:hover {
+  color: #E5A93C;
+}
+
+.headerOpen {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+/* ── Logo Link ── */
+.linkLogo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.linkLogo:hover {
+  opacity: 0.88;
+}
+
+.brandLogoImg {
+  height: clamp(26px, 2.6vw, 34px);
+  width: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.linkLogo:hover .brandLogoImg {
+  transform: scale(1.02);
+}
+
+/* ── Synchronized 2-Line Morphing Button (= to X) ── */
+.menuToggle {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: var(--color-navy, #11172D);
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.line {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background-color: currentColor;
+  border-radius: 1px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.25s ease;
+  transform-origin: center;
+}
+
+/* Default Closed State: 2 Equal-Size Parallel Lines */
+.line:first-child {
+  margin-bottom: 6px;
+}
+
+.menuToggle:hover {
+  color: #B5933C;
+}
+
+/* Open State: Color Shifts to Off-White and Morphs into Symmetrical Cross X */
+.menuToggleOpen {
+  color: #FAF8F5;
+}
+
+.menuToggleOpen:hover {
+  color: #EDE84D;
+}
+
+.menuToggleOpen .line:first-child {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.menuToggleOpen .line:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+.menuToggleOpen:hover .line:first-child {
+  transform: translateY(4px) rotate(135deg);
+}
+
+.menuToggleOpen:hover .line:last-child {
+  transform: translateY(-4px) rotate(45deg);
+}
+
+/* ── Fullscreen Editorial Menu Drawer ── */
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background-color: #11172D; /* Deep Midnight Navy */
+  color: #FAF8F5;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.4s 0s;
+  overflow-y: auto;
+}
+
+.drawerOpen {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Drawer Main Content */
+.drawerContent {
+  flex: 1;
+  max-width: var(--container-max, 1400px);
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(6.5rem, 14vh, 9rem) clamp(24px, 6vw, 80px) 3rem clamp(24px, 6vw, 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Big Bold Display Navigation */
+.navLinks {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 3.2vh, 2.75rem);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.navItem {
+  overflow: visible;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: baseline;
+  gap: clamp(1.2rem, 2.5vw, 2.5rem);
+  text-decoration: none;
+  color: #FAF8F5;
+  cursor: pointer;
+}
+
+.navLinkIndex {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: rgba(250, 248, 245, 0.55);
+  transition: color 0.25s ease;
+}
+
+/* Option Text: Moves Slightly Towards Right Side on Hover */
+.navLinkText {
+  font-family: var(--font-display, 'The youngest serif', Georgia, serif);
+  font-size: clamp(3rem, 6.5vw, 5.8rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  color: #FAF8F5;
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.25s ease;
+  will-change: transform;
+}
+
+.navLink:hover .navLinkText {
+  transform: translateX(20px);
+  color: #EDE84D;
+}
+
+.navLink:hover .navLinkIndex {
+  color: #EDE84D;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .header {
+    height: 72px;
+    padding: 0 20px;
+  }
+
+  .drawerContent {
+    padding: 6rem 20px 3rem 20px;
+  }
+
+  .navLink {
+    gap: 1.2rem;
+  }
+
+  .navLink:hover .navLinkText {
+    transform: translateX(12px);
+  }
+
+  .navLinkText {
+    font-size: clamp(2.2rem, 8vw, 3.4rem);
+  }
+}

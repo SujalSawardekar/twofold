@@ -1,0 +1,305 @@
+/* ══════════════════════════════════════════════════════
+   INSIGHTS — Modern Card Layout (Reference Image Design)
+   ══════════════════════════════════════════════════════ */
+
+.section {
+  background: #FFFFFF;
+  padding: clamp(5rem, 8vw, 8rem) 0;
+  border-top: 1px solid #EAE6DF;
+  position: relative;
+}
+
+.inner {
+  max-width: var(--container-max, 1320px);
+  margin: 0 auto;
+  padding: 0 var(--gutter, 2rem);
+}
+
+/* ── TOP HEADER ROW ── */
+.topRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.eyebrow {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C9A24A;
+}
+
+.headline {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+  letter-spacing: -0.02em;
+  color: #11172D;
+  margin: 0;
+  line-height: 1.12;
+}
+
+.subtext {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #4A5568;
+  margin: 0.3rem 0 0 0;
+  max-width: 54ch;
+}
+
+.ctaBtn {
+  --color: #11172D;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color);
+  background: transparent;
+  padding: 12px 24px;
+  border-radius: 30px;
+  border: 2px solid var(--color);
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.8s ease, border-color 0.6s ease, transform 0.4s ease, box-shadow 0.4s ease;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.ctaBtn::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: var(--color);
+  width: 240%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  top: 100%;
+  left: 100%;
+  transform: translate(0, 0);
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+.ctaBtn:hover {
+  color: #FFFFFF !important;
+  border-color: var(--color);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px rgba(17, 23, 45, 0.22);
+}
+
+.ctaBtn:hover::before {
+  transform: translate(-72%, -72%);
+  transition: transform 1.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ── MAIN ASYMMETRIC GRID ── */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.18fr;
+  gap: clamp(1.5rem, 3vw, 2.2rem);
+  align-items: stretch;
+}
+
+/* ── LEFT FEATURED CARD ── */
+.featuredCard {
+  background: #FAF8F5;
+  border-radius: 20px;
+  border: 1px solid #EAE6DF;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.25, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.featuredCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(17, 23, 45, 0.08);
+  border-color: #C9A24A;
+}
+
+.featuredImgWrapper {
+  position: relative;
+  width: 100%;
+  height: clamp(240px, 22vw, 340px);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.cardImg {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+
+.featuredCard:hover .cardImg,
+.smallCard:hover .cardImg {
+  transform: scale(1.05);
+}
+
+.categoryBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(17, 23, 45, 0.78);
+  backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 2;
+}
+
+.featuredContent {
+  padding: 1.4rem 0.4rem 0.4rem 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.featuredTitle {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-weight: 700;
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: #11172D;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.featuredCard:hover .featuredTitle,
+.smallCard:hover .smallTitle {
+  color: #C9A24A;
+}
+
+.featuredExcerpt {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #4A5568;
+  margin: 0;
+}
+
+.dateMeta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #718096;
+  margin-top: 0.4rem;
+}
+
+.clockIcon {
+  width: 15px;
+  height: 15px;
+  stroke: #718096;
+  flex-shrink: 0;
+}
+
+/* ── RIGHT SECONDARY 2x2 GRID ── */
+.secondaryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+}
+
+.smallCard {
+  background: #FAF8F5;
+  border-radius: 18px;
+  border: 1px solid #EAE6DF;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.25, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.smallCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 35px rgba(17, 23, 45, 0.08);
+  border-color: #C9A24A;
+}
+
+.smallImgWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.smallContent {
+  padding: 1rem 0.2rem 0.2rem 0.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-grow: 1;
+}
+
+.smallTitle {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-weight: 600;
+  font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: #11172D;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+/* ── RESPONSIVE BEHAVIOR ── */
+@media (max-width: 1024px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .topRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+
+  .secondaryGrid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .featuredImgWrapper {
+    height: 220px;
+  }
+}

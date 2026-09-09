@@ -1,0 +1,232 @@
+/* ══════════════════════════════════════════════════════
+   WHO WE SERVE — Compact Single-Screen Layout + Rotated Floating Images
+   ══════════════════════════════════════════════════════ */
+
+.section {
+  background: #FFFFFF;
+  border-top: 1px solid #EAE6DF;
+  padding: clamp(3rem, 5vw, 4.5rem) 0;
+  position: relative;
+}
+
+.inner {
+  max-width: var(--container-max, 1320px);
+  margin: 0 auto;
+  padding: 0 var(--gutter, 2rem);
+}
+
+.topRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: clamp(1.2rem, 2.2vw, 1.8rem);
+  padding-bottom: clamp(0.8rem, 1.5vw, 1.2rem);
+  border-bottom: 1px solid #EAE6DF;
+}
+
+.eyebrow {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C9A24A;
+}
+
+.headline {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+  letter-spacing: -0.02em;
+  color: #11172D;
+  line-height: 1.12;
+  margin: 0;
+  max-width: 34ch;
+}
+
+/* ── Compact Typographic List (Fits All 4 Titles on One Screen) ── */
+.listWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: clamp(1.1rem, 1.8vw, 1.5rem) 0;
+  border-bottom: 1px solid #EAE6DF;
+  cursor: pointer;
+  position: relative;
+  transition: padding-left 0.35s cubic-bezier(0.2, 0.8, 0.25, 1), opacity 0.35s ease;
+}
+
+.itemMain {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(1.2rem, 2vw, 2.2rem);
+  max-width: calc(100% - 380px);
+}
+
+.itemIdx {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #C9A24A;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.itemTitleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.itemTitle {
+  font-family: var(--font-display, 'Playfair Display', serif);
+  font-weight: 500;
+  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: #11172D;
+  margin: 0;
+  transition: color 0.3s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+
+.itemDesc {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #4A5568;
+  margin: 0;
+  max-width: 48ch;
+  opacity: 0.75;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+/* Hover States for Active Item */
+.itemActive {
+  padding-left: clamp(1rem, 1.8vw, 1.8rem);
+}
+
+.itemActive .itemTitle {
+  color: #11172D;
+}
+
+.itemActive .itemDesc {
+  opacity: 1;
+  color: #11172D;
+}
+
+.itemDim {
+  opacity: 0.3;
+}
+
+/* ── Rotated & Motion Floating Preview Image (Clean Full-Bleed Photo) ── */
+.rowImageOverlay {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  width: clamp(280px, 28vw, 360px);
+  height: clamp(190px, 19vw, 240px);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(234, 230, 223, 0.8);
+  box-shadow: 0 20px 50px rgba(17, 23, 45, 0.22);
+  background: #11172D;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  will-change: transform, opacity;
+  transition: opacity 0.35s cubic-bezier(0.2, 0.8, 0.25, 1), 
+              transform 0.4s cubic-bezier(0.2, 0.8, 0.25, 1), 
+              visibility 0.35s ease;
+}
+
+/* Distinct Organic Rotations per Item */
+.rotate0 {
+  transform: translateY(-50%) rotate(-4deg) scale(0.92);
+}
+
+.rotate1 {
+  transform: translateY(-50%) rotate(3.5deg) scale(0.92);
+}
+
+.rotate2 {
+  transform: translateY(-50%) rotate(-3deg) scale(0.92);
+}
+
+.rotate3 {
+  transform: translateY(-50%) rotate(4deg) scale(0.92);
+}
+
+/* Active Hover Motion States */
+.rotate0.rowImageOverlayActive {
+  opacity: 1;
+  visibility: visible;
+  animation: floatMotionA 3.6s infinite ease-in-out;
+}
+
+.rotate1.rowImageOverlayActive {
+  opacity: 1;
+  visibility: visible;
+  animation: floatMotionB 3.8s infinite ease-in-out;
+}
+
+.rotate2.rowImageOverlayActive {
+  opacity: 1;
+  visibility: visible;
+  animation: floatMotionA 4s infinite ease-in-out;
+}
+
+.rotate3.rowImageOverlayActive {
+  opacity: 1;
+  visibility: visible;
+  animation: floatMotionB 3.5s infinite ease-in-out;
+}
+
+@keyframes floatMotionA {
+  0%, 100% {
+    transform: translateY(-50%) rotate(-4deg) scale(1.02);
+  }
+  50% {
+    transform: translateY(calc(-50% - 8px)) rotate(-2.5deg) scale(1.04);
+  }
+}
+
+@keyframes floatMotionB {
+  0%, 100% {
+    transform: translateY(-50%) rotate(3.5deg) scale(1.02);
+  }
+  50% {
+    transform: translateY(calc(-50% - 8px)) rotate(4.8deg) scale(1.04);
+  }
+}
+
+.cardImg {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .itemMain {
+    max-width: 100%;
+  }
+
+  .rowImageOverlay {
+    display: none;
+  }
+}

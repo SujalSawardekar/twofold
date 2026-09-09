@@ -1,0 +1,290 @@
+/* ═══════════════════════════════════════════════════════════════
+   TWOFOLD — WHY BUYERS CHOOSE TWOFOLD
+   Storytelling Scroll Experience:
+   - Full top clearance below floating navbar (title always visible)
+   - Mathematically dead-center active card (no right offset)
+   - Continuous horizontal line passing behind the card:
+     * Starts dotted across the screen
+     * Progressively fills with solid Twofold gold as cards move left
+     * 100% completely filled when Card 06 reaches center
+   - Outgoing card: CENTER -> moves LEFT -> exits
+   - Incoming card: enters from RIGHT -> settles in dead CENTER
+   - Pinned / sticky experience driven strictly by user scroll
+   ═══════════════════════════════════════════════════════════════ */
+
+.section {
+  position: relative;
+  background-color: #0A0D1A;
+  color: #F9FAF5;
+  width: 100%;
+  overflow-x: clip;
+  user-select: none;
+}
+
+/* Subtle Ambient Lighting */
+.bgGlow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 12%, rgba(27, 42, 74, 0.45) 0%, transparent 65%),
+              radial-gradient(circle at 50% 50%, rgba(229, 169, 60, 0.04) 0%, transparent 55%),
+              radial-gradient(circle at 80% 88%, rgba(17, 23, 45, 0.6) 0%, transparent 60%);
+  z-index: 1;
+}
+
+/* ── Pinned Full-Viewport Container ── */
+/* Top padding: clamp(104px, 14vh, 128px) guarantees the section title remains 100% visible below the 84px floating navbar */
+.pinnedContainer {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(104px, 14vh, 128px) 0 clamp(24px, 4vh, 44px);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ── TOP HEADER (Aligned left and unblocked by navbar) ── */
+.header {
+  width: 100%;
+  max-width: var(--container-max, 1400px);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 56px);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  z-index: 3;
+}
+
+.eyebrowWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  color: #C9A24A;
+  font-weight: 600;
+}
+
+.eyebrowDot {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.eyebrowSub {
+  color: #8C94A8;
+  font-weight: 500;
+}
+
+.headline {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin: 0;
+  text-align: left;
+}
+
+.headline em {
+  font-style: italic;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: #FFFFFF;
+}
+
+/* ── CONTINUOUS HORIZONTAL CONNECTING LINE (Behind the Card) ── */
+/* Initially dotted across full width. Fills with solid gold from left to right as cards advance. */
+.lineContainer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 54%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 60px;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.lineSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.baseDottedPath {
+  stroke: rgba(255, 255, 255, 0.24);
+  stroke-dasharray: 4 6;
+}
+
+.goldProgressPath {
+  stroke: #E5A93C;
+  filter: drop-shadow(0 0 8px rgba(229, 169, 60, 0.75));
+}
+
+/* ── SINGLE ACTIVE CARD STAGE (Dead Center) ── */
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: min(680px, 92vw);
+  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  min-height: clamp(360px, 48vh, 480px);
+}
+
+/* Single Story Card (Left: 0, Width: 100% inside centered .stage => Dead Center) */
+.storyCard {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(14px, 2vh, 18px);
+  will-change: transform, opacity;
+  box-sizing: border-box;
+}
+
+/* Wide Photographic Image Frame (Matches Reference) */
+.cardImageFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 8.5;
+  max-height: clamp(170px, 25vh, 230px);
+  border-radius: 14px;
+  overflow: hidden;
+  background-color: #070913;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 28px 70px -15px rgba(0, 0, 0, 0.9),
+              0 0 32px -10px rgba(229, 169, 60, 0.16);
+}
+
+.cardImg {
+  object-fit: cover;
+}
+
+.cardBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(10, 13, 26, 0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #E5A93C;
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 11px;
+  border-radius: 6px;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.cardImageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(10, 13, 26, 0.5) 100%);
+  pointer-events: none;
+}
+
+/* Card Editorial Body (Below the Photo) */
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(6px, 1vh, 10px);
+  max-width: 620px;
+}
+
+.cardKicker {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: clamp(0.72rem, 0.88vw, 0.82rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #E5A93C;
+}
+
+.cardTitle {
+  font-family: var(--font-display, 'The youngest serif', Georgia, serif);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.2vw, 1.95rem);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.cardDesc {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: clamp(0.86rem, 1.05vw, 0.98rem);
+  line-height: 1.62;
+  color: #A3AABF;
+  margin: 0;
+}
+
+/* ── Responsive Adaptations ── */
+@media (max-width: 900px) {
+  .pinnedContainer {
+    padding-top: clamp(96px, 13vh, 116px);
+  }
+
+  .stage {
+    max-width: min(580px, 92vw);
+  }
+}
+
+@media (max-width: 600px) {
+  .pinnedContainer {
+    padding: 92px 0 20px;
+  }
+
+  .headline {
+    font-size: 2rem;
+  }
+
+  .stage {
+    max-width: min(380px, 92vw);
+    min-height: 350px;
+  }
+
+  .cardImageFrame {
+    max-height: 155px;
+    border-radius: 10px;
+  }
+
+  .cardTitle {
+    font-size: 1.25rem;
+  }
+
+  .cardDesc {
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+}

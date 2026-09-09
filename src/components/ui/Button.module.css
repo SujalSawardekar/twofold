@@ -1,0 +1,107 @@
+.button {
+  --color: var(--color-navy, #11172D);
+  --hover-text: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-weight: 500;
+  font-size: var(--text-small, 0.875rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--color);
+  transition: color 0.8s ease, border-color 0.6s ease, transform 0.5s ease, box-shadow 0.5s ease;
+  z-index: 1;
+  color: var(--color);
+  background: transparent;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: var(--color);
+  width: 240%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  top: 100%;
+  left: 100%;
+  transform: translate(0, 0);
+  /* Smooth, graceful return on mouse leave */
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+.button:hover {
+  color: var(--hover-text) !important;
+  border-color: var(--color);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px rgba(17, 23, 45, 0.22);
+}
+
+.button:hover::before {
+  transform: translate(-72%, -72%);
+  /* Slow, silky, clearly visible expanding circle wave on hover */
+  transition: transform 1.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.button:active::before {
+  background: #0B1020;
+  transition: background 0s;
+}
+
+/* Color & Context Variants */
+.primary {
+  --color: var(--color-navy, #11172D);
+  --hover-text: #FFFFFF;
+  padding: 13px 30px;
+}
+
+.outline {
+  --color: var(--color-navy, #11172D);
+  --hover-text: #FFFFFF;
+  padding: 13px 30px;
+}
+
+.white,
+.outline-white {
+  --color: #FAF8F5;
+  --hover-text: var(--color-navy, #11172D);
+  padding: 13px 30px;
+}
+
+.ghost {
+  --color: var(--color-navy, #11172D);
+  --hover-text: #FFFFFF;
+  padding: 12px 24px;
+}
+
+.large {
+  padding: 16px 38px;
+  font-size: 0.95rem;
+}
+
+.small {
+  padding: 9px 20px;
+  font-size: 0.78rem;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.arrow {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.button:hover .arrow {
+  transform: translateX(4px);
+}

@@ -1,0 +1,242 @@
+/* ══════════════════════════════════════════════════════
+   FINAL CTA - Premium Editorial Asymmetric Closing Statement
+   Colors: Deep Midnight Navy #11172D, Warm Off-White #F9FAF5, Electric Acid Yellow #EDE84D
+   ══════════════════════════════════════════════════════ */
+
+.section {
+  position: relative;
+  background: var(--color-navy);
+  color: var(--color-warm-white);
+  padding: clamp(6rem, 11vw, 10rem) 0 0;
+  overflow: hidden;
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  position: relative;
+}
+
+/* ── 1. Top Metadata & Registration Bar ── */
+.metaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: clamp(2.5rem, 4vw, 4rem);
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(249, 250, 245, 0.12);
+}
+
+.registrationMark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.crosshair {
+  font-family: var(--font-mono, monospace);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-yellow);
+  line-height: 1;
+}
+
+.metaText {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(249, 250, 245, 0.7);
+}
+
+.conclusionTag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-yellow);
+  background: rgba(237, 232, 77, 0.12);
+  border: 1px solid rgba(237, 232, 77, 0.25);
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+/* ── 2. Giant Editorial Asymmetric Headline ── */
+.headlineWrapper {
+  margin-bottom: clamp(3rem, 5vw, 5rem);
+}
+
+.headline {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3rem, 6.2vw, 6.2rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--color-warm-white);
+  margin: 0;
+  max-width: 22ch;
+  will-change: transform, opacity;
+}
+
+.yellowAccent {
+  font-style: italic;
+  color: var(--color-yellow);
+  position: relative;
+  display: inline-block;
+}
+
+/* Selective subtle underline accent on yellow phrase */
+.yellowAccent::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: var(--color-yellow);
+  opacity: 0.4;
+  border-radius: 999px;
+}
+
+/* ── 3. Subtle Paper Folding Crease Line (SVG Stroke Draw) ── */
+.foldLineContainer {
+  position: relative;
+  width: 100%;
+  margin: clamp(2rem, 3.5vw, 3.5rem) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.foldSvg {
+  width: 100%;
+  height: 24px;
+  overflow: visible;
+}
+
+.foldTag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(249, 250, 245, 0.45);
+  text-align: right;
+}
+
+/* ── 4. Lower Asymmetric Content & Distinctive CTA Row ── */
+.lowerRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 7rem);
+  align-items: flex-start;
+  padding-top: clamp(1rem, 2vw, 2.5rem);
+  padding-bottom: clamp(4rem, 7vw, 7rem);
+  border-bottom: 1px solid rgba(249, 250, 245, 0.12);
+  will-change: transform, opacity;
+}
+
+/* Left Commitment Block */
+.commitmentBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.commitmentLabel {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-yellow);
+}
+
+.commitmentText {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.8;
+  color: rgba(249, 250, 245, 0.7);
+  max-width: 44ch;
+  margin: 0;
+}
+
+/* Right Supporting Copy & Distinctive CTA Block */
+.ctaBlock {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 2.5vw, 2.5rem);
+  align-items: flex-start;
+}
+
+.copy {
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  line-height: 1.8;
+  color: rgba(249, 250, 245, 0.85);
+  max-width: 42ch;
+  margin: 0;
+}
+
+/* Distinctive Editorial CTA Wrapper */
+.distinctiveCtaWrap {
+  position: relative;
+  display: inline-block;
+  padding: 4px;
+}
+
+.yellowHoverBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--color-yellow);
+  border-radius: 999px;
+  transition: width 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.distinctiveCtaWrap:hover .yellowHoverBar {
+  width: 100%;
+}
+
+/* ── 5. Bottom Brand Wordmark ── */
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(5rem, 15vw, 16rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: rgba(249, 250, 245, 0.04);
+  text-align: center;
+  padding: clamp(1.5rem, 4vw, 3.5rem) 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ── Responsive Styling ── */
+@media (max-width: 1024px) {
+  .headline {
+    font-size: clamp(2.6rem, 5.5vw, 4.8rem);
+  }
+
+  .lowerRow {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .metaRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .headline {
+    font-size: clamp(2.2rem, 7vw, 3.2rem);
+  }
+}

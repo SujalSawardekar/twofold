@@ -1,0 +1,264 @@
+/* ══════════════════════════════════════════════════════
+   WHO WE ARE — Editorial dual-image composition
+   ══════════════════════════════════════════════════════ */
+
+.section {
+  background: var(--color-warm-white);
+  padding: clamp(5rem, 10vw, 9rem) 0;
+  overflow: hidden;
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ── Section Header ── */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.eyebrow {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C9A24A;
+}
+
+.statement {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--color-navy, #11172D);
+  margin: 0;
+  text-align: left;
+}
+
+.statement em {
+  font-style: italic;
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+/* ── Composition grid ── */
+.compositionGrid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(3rem, 6vw, 7rem);
+  align-items: center;
+}
+
+/* ── Main image area ── */
+.mainImageArea {
+  position: relative;
+}
+
+.mainFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  /* clipPath animated by GSAP */
+}
+
+.mainImg {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 600ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.mainFrame:hover .mainImg {
+  transform: scale(1.03);
+}
+
+/* Overlapping notebook: positioned bottom-right */
+.notebookFrame {
+  position: absolute;
+  bottom: -12%;
+  right: -10%;
+  width: 38%;
+  aspect-ratio: 3 / 4;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 3px solid var(--color-warm-white);
+  box-shadow: 0 12px 40px rgba(27, 42, 74, 0.14);
+  will-change: transform;
+}
+
+.notebookImg {
+  object-fit: cover;
+  transition: transform 600ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.notebookFrame:hover .notebookImg {
+  transform: scale(1.05);
+}
+
+/* ── Text area ── */
+.textArea {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  padding-top: clamp(1rem, 3vw, 3rem);
+}
+
+.statement {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--color-navy);
+  margin: 0;
+}
+
+.statement em {
+  font-style: italic;
+  color: var(--color-steel-grey);
+}
+
+.bodyBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.copy {
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  line-height: 1.85;
+  color: var(--color-charcoal);
+  opacity: 0.8;
+  max-width: 48ch;
+  margin: 0;
+}
+
+/* Pillar tags */
+.pillars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pillar {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-navy);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  padding: 5px 12px;
+}
+
+/* CTA */
+.cta {
+  --color: var(--color-navy, #11172D);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color);
+  background: transparent;
+  padding: 13px 26px;
+  border-radius: 6px;
+  border: 2px solid var(--color);
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.8s ease, border-color 0.6s ease, transform 0.5s ease, box-shadow 0.5s ease;
+  z-index: 1;
+  width: fit-content;
+}
+
+.cta::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: var(--color);
+  width: 240%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  top: 100%;
+  left: 100%;
+  transform: translate(0, 0);
+  /* Smooth, graceful return on mouse leave */
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+.cta:hover {
+  color: #FFFFFF;
+  border-color: var(--color);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px rgba(17, 23, 45, 0.18);
+}
+
+.cta:hover::before {
+  transform: translate(-72%, -72%);
+  /* Slow, silky, clearly visible expanding circle wave on hover */
+  transition: transform 1.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.cta:active::before {
+  background: #0B1020;
+  transition: background 0s;
+}
+
+.cta svg {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.cta:hover svg {
+  transform: translateX(4px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .notebookFrame {
+    right: -5%;
+    width: 32%;
+  }
+}
+
+@media (max-width: 768px) {
+  .compositionGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3xl);
+  }
+
+  .mainFrame {
+    aspect-ratio: 16 / 10;
+  }
+
+  .notebookFrame {
+    width: 30%;
+    bottom: -10%;
+    right: 4%;
+  }
+
+  .topRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}

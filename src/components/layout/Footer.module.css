@@ -1,0 +1,320 @@
+/* ══════════════════════════════════════════════════════
+   FOOTER — Dark Theme Elevated Card Design (Enky Layout)
+   ══════════════════════════════════════════════════════ */
+
+.footer {
+  background: #080C16;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+  color: #FFFFFF;
+  position: relative;
+}
+
+.inner {
+  max-width: var(--container-max, 1320px);
+  margin: 0 auto;
+  padding: 0 var(--gutter, 2rem);
+}
+
+/* ── Dark Card Box Container ── */
+.footerCard {
+  background: #11172D;
+  border-radius: 28px;
+  padding: clamp(2.5rem, 5vw, 4.2rem) clamp(2rem, 4vw, 3.5rem) clamp(1.8rem, 3vw, 2.5rem);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
+
+.topRow {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: clamp(3rem, 6vw, 5.5rem);
+  align-items: start;
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.logoWrapper {
+  display: inline-block;
+}
+
+.brandLogoImg {
+  width: auto;
+  height: 44px;
+  object-fit: contain;
+}
+
+.newsletterPrompt {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #A0AEC0;
+  margin: 0;
+  max-width: 42ch;
+}
+
+/* Newsletter Input Form Pill */
+.newsletterForm {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 40px;
+  padding: 5px 6px 5px 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  max-width: 420px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.newsletterForm:focus-within {
+  border-color: #C9A24A;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.emailInput {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.9rem;
+  color: #FFFFFF;
+  padding: 8px 0;
+}
+
+.emailInput::placeholder {
+  color: #718096;
+}
+
+.subscribeBtn {
+  --color: #C9A24A;
+  --hover-text: #11172D;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--color);
+  border: 1.5px solid var(--color);
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  border-radius: 30px;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.8s ease, border-color 0.6s ease, transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.subscribeBtn::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: var(--color);
+  width: 240%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  top: 100%;
+  left: 100%;
+  transform: translate(0, 0);
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+.subscribeBtn:hover {
+  color: var(--hover-text) !important;
+  border-color: var(--color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201, 162, 74, 0.25);
+}
+
+.subscribeBtn:hover::before {
+  transform: translate(-72%, -72%);
+  transition: transform 1.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Social Icon Circles */
+.socialRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 0.4rem;
+}
+
+.socialCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+
+.socialCircle:hover {
+  background: #C9A24A;
+  color: #11172D;
+  border-color: #C9A24A;
+  transform: translateY(-3px);
+}
+
+/* Links Grid */
+.linksGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.linkGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.groupHeading {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footerLink {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.9rem;
+  color: #A0AEC0;
+  text-decoration: none;
+  transition: color 0.25s ease, transform 0.25s ease;
+  display: inline-block;
+}
+
+.footerLink:hover {
+  color: #C9A24A;
+  transform: translateX(3px);
+}
+
+.contactDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contactItem {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #A0AEC0;
+  margin: 0;
+}
+
+/* Giant Brand Logo with Dark Gradient on Lower Part Only to Merge Into Background */
+.giantLogoContainer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 1rem;
+}
+
+.gradientMaskOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(17, 23, 45, 0) 30%, rgba(17, 23, 45, 0.6) 70%, #11172D 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.giantLogoImg {
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  transform: scale(1.05);
+  transform-origin: center top;
+  object-fit: contain;
+  opacity: 0.95;
+  filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.5));
+}
+
+/* Bottom Bar */
+.bottomBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.copyText {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.82rem;
+  color: #718096;
+  margin: 0;
+}
+
+.legalLinks {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.legalLink {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.82rem;
+  color: #718096;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.legalLink:hover {
+  color: #FFFFFF;
+}
+
+@media (max-width: 1024px) {
+  .topRow {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .linksGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .bottomBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

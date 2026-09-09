@@ -1,0 +1,30 @@
+.wrapper {
+  margin-bottom: var(--space-2xl);
+}
+
+.heading {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-navy);
+}
+
+.heading em, .heading i {
+  font-style: italic;
+}
+
+.description {
+  font-size: var(--text-body-lg);
+  color: var(--color-charcoal);
+  margin-top: var(--space-md);
+  max-width: 60ch;
+  line-height: 1.75;
+}
+
+.light .heading {
+  color: var(--color-warm-white);
+}
+
+.light .description {
+  color: var(--color-steel-grey);
+}
