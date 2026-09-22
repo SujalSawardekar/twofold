@@ -80,7 +80,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── Desktop & Mobile Header Bar ── */}
+      {/* ── Desktop & Mobile Floating Capsule Header ── */}
       <header
         className={`
           ${styles.header}
@@ -89,21 +89,21 @@ export default function Navbar() {
           ${isOpen ? styles.headerOpen : ''}
         `}
       >
-        <div className={styles.headerInner}>
+        <div className={styles.navbarCapsule}>
 
-          {/* Left: Two Fold Official Brand Logo */}
+          {/* Left: Two Fold Official Brand Logo (Inverted to Pure White on Dark Capsule) */}
           <Link href="/" className={styles.linkLogo} aria-label="Twofold Home" onClick={() => setIsOpen(false)}>
             <Image
               src="/Logo/Two Fold.png"
               alt="Twofold"
-              width={120}
-              height={36}
+              width={105}
+              height={30}
               className={styles.brandLogoImg}
               priority
             />
           </Link>
 
-          {/* Center: Desktop Horizontal Navigation Links */}
+          {/* Center: Horizontal Navigation Links */}
           <nav className={styles.desktopNav} aria-label="Main Navigation">
             <ul className={styles.desktopNavList}>
               {NAV_ITEMS.map((item) => {
@@ -123,16 +123,14 @@ export default function Navbar() {
             </ul>
           </nav>
 
-          {/* Right: CTA Button & Mobile Menu Toggle */}
+          {/* Right: Embedded Cream-Gold Capsule CTA Button & Mobile Menu Toggle */}
           <div className={styles.rightActions}>
-            <Button
+            <Link
               href="/contact-us"
-              variant="primary"
-              size="small"
-              hasArrow
+              className={styles.capsuleCta}
             >
               Partner With Us
-            </Button>
+            </Link>
 
             {/* Mobile Hamburger Toggle Button */}
             <button

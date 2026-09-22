@@ -1,54 +1,63 @@
 /* ═══════════════════════════════════════════════════════════════
-   TWOFOLD — BRAND GUIDELINE NAVBAR (Warm Cream & Midnight Navy)
+   TWOFOLD — FLOATING DARK PILL CAPSULE NAVBAR
+   - Floating centered pill container (Deep Midnight Navy)
+   - Left: Twofold Brand Mark (Crisp White)
+   - Center: Minimal text links with subtle pill hover highlight
+   - Right: Embedded Cream-Gold Pill CTA Button
    ═══════════════════════════════════════════════════════════════ */
 
 .header {
   position: fixed;
-  top: 0;
+  top: 1.25rem;
   left: 0;
   width: 100%;
-  height: 80px;
   z-index: 250;
   display: flex;
-  align-items: center;
-  background: rgba(250, 248, 245, 0.88);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--color-border-light, #EAE6DF);
+  justify-content: center;
+  pointer-events: none; /* Allows clicks around the floating capsule */
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              background 0.3s ease,
-              box-shadow 0.3s ease;
+              opacity 0.3s ease;
   will-change: transform;
 }
 
-.headerInner {
-  max-width: var(--container-max, 1360px);
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 clamp(20px, 3.5vw, 48px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* Headroom States */
 .headerVisible {
   transform: translateY(0);
+  opacity: 1;
 }
 
 .headerHidden {
-  transform: translateY(-100%);
-}
-
-.headerScrolled {
-  background: rgba(250, 248, 245, 0.96);
-  box-shadow: 0 4px 20px rgba(17, 23, 45, 0.05);
-  border-bottom-color: var(--color-border, #D5D5D5);
+  transform: translateY(-130%);
+  opacity: 0;
 }
 
 .headerOpen {
-  background: var(--color-warm-white, #FAF8F5) !important;
-  box-shadow: none !important;
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+}
+
+/* ── Floating Dark Pill Capsule Container ── */
+.navbarCapsule {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1.2rem, 2.8vw, 3rem);
+  background: rgba(17, 23, 45, 0.94); /* Deep Midnight Navy */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  padding: 6px 8px 6px clamp(16px, 1.8vw, 22px);
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.45),
+              0 0 0 1px rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.headerScrolled .navbarCapsule {
+  background: rgba(14, 20, 38, 0.98);
+  box-shadow: 0 20px 45px -6px rgba(0, 0, 0, 0.55),
+              0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 /* ── Logo ── */
@@ -57,18 +66,20 @@
   align-items: center;
   text-decoration: none;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .linkLogo:hover {
-  opacity: 0.85;
+  opacity: 0.88;
+  transform: scale(1.02);
 }
 
 .brandLogoImg {
-  height: clamp(28px, 2.5vw, 34px);
+  height: clamp(22px, 2.2vw, 26px);
   width: auto;
   object-fit: contain;
   display: block;
+  filter: brightness(0) invert(1); /* Pure crisp white on dark capsule */
 }
 
 /* ── Desktop Horizontal Navigation ── */
@@ -80,70 +91,98 @@
 .desktopNavList {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.25rem;
   list-style: none;
   margin: 0;
-  padding: 0.3rem 0.45rem;
-  background: rgba(17, 23, 45, 0.04);
-  border: 1px solid var(--color-border-light, #EAE6DF);
-  border-radius: 9999px;
+  padding: 0;
 }
 
 .desktopNavLink {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 1.15rem;
+  gap: 0.35rem;
+  padding: 0.45rem 0.95rem;
   border-radius: 9999px;
   font-family: var(--font-body, 'Gramatika', sans-serif);
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   font-weight: 500;
-  color: var(--color-charcoal, #2D3436);
+  color: rgba(250, 248, 245, 0.75);
   text-decoration: none;
-  transition: all 0.25s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
 }
 
 .desktopNavLink:hover {
-  color: var(--color-navy, #11172D);
-  background: rgba(255, 255, 255, 0.85);
+  color: #FAF8F5;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .activeLink {
-  color: var(--color-navy, #11172D);
+  color: #FAF8F5;
   font-weight: 600;
-  background: #FFFFFF;
-  box-shadow: 0 2px 8px rgba(17, 23, 45, 0.06);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .activeDot {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background-color: var(--color-gold, #C9A24A);
 }
 
-/* ── Right Actions: CTA + Mobile Menu Button ── */
+/* ── Right Actions ── */
 .rightActions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
+}
+
+/* ── Embedded Cream-Gold Capsule CTA Button (Matching Reference Image) ── */
+.capsuleCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.35rem;
+  background: #FFF3A8; /* Soft Warm Cream-Gold */
+  color: #11172D; /* Midnight Navy Text */
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 9999px;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(255, 243, 168, 0.25);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.capsuleCta:hover {
+  background: #FFFFFF;
+  color: #11172D;
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.35);
+}
+
+.capsuleCta:active {
+  transform: scale(0.98);
 }
 
 /* ── Mobile Hamburger Menu Toggle ── */
 .mobileMenuToggle {
   display: none;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(17, 23, 45, 0.05);
-  border: 1px solid var(--color-border-light, #EAE6DF);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 50%;
   cursor: pointer;
   padding: 0;
-  color: var(--color-navy, #11172D);
+  color: #FAF8F5;
   transition: all 0.2s ease;
 }
 
@@ -255,11 +294,22 @@
 
 /* ── Responsive ── */
 @media (max-width: 960px) {
+  .header {
+    top: 1rem;
+    padding: 0 16px;
+  }
+
+  .navbarCapsule {
+    width: 100%;
+    max-width: 480px;
+    padding: 6px 10px 6px 16px;
+  }
+
   .desktopNav {
     display: none;
   }
 
-  .ctaButton {
+  .capsuleCta {
     display: none;
   }
 
