@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Button from '@/components/ui/Button';
 import { useGSAP } from '@gsap/react';
 import { gsap } from '@/lib/gsap';
 import styles from './QualityAssurance.module.css';
@@ -164,10 +165,17 @@ export default function QualityAssurance() {
               <div className={styles.cardBody}>
                 <p className={styles.cardDesc}>{card.description}</p>
                 
-                <Link href={card.link} className={styles.ctaBtn} aria-label={`Explore ${card.title}`}>
-                  <span>EXPLORE</span>
-                  <span className={styles.arrow} aria-hidden="true">→</span>
-                </Link>
+                <div style={{ marginTop: 'auto', paddingTop: '1rem' }}>
+                  <Button 
+                    href={card.link} 
+                    variant="outline" 
+                    size="small" 
+                    hasArrow 
+                    aria-label={`Explore ${card.title}`}
+                  >
+                    Explore
+                  </Button>
+                </div>
               </div>
             </div>
           ))}

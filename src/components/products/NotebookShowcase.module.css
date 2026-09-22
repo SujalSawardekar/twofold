@@ -8,17 +8,27 @@
    - Scroll-stuck pinning that releases to the footer at the end
    ============================================================ */
 
-.scrollWrapper {
+.section {
   position: relative;
   width: 100%;
   background-color: #FAF8F5;
+  overflow: visible;
+}
+
+.pinContainer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* Full Viewport Stage (Zero gaps up, down, left, right) */
 .fullBleedShowcase {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   min-height: 100vh;
   background-color: #FAF8F5;
   display: grid;
@@ -291,7 +301,6 @@
   stroke-linecap: round;
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
-  transition: stroke-dashoffset 0.05s linear;
 }
 
 /* Tooltip on Hover */

@@ -59,7 +59,7 @@ export default function GlobalError({ error, reset }) {
               fontSize: '0.85rem',
               letterSpacing: '0.1em',
               cursor: 'pointer',
-              borderRadius: '2px'
+              borderRadius: '6px'
             }}
           >
             RELOAD APPLICATION

@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import Button from '@/components/ui/Button';
 
 export default function NotFound() {
   return (
@@ -41,23 +41,9 @@ export default function NotFound() {
       }}>
         The page you are looking for does not exist or has been moved.
       </p>
-      <Link
-        href="/"
-        style={{
-          display: 'inline-block',
-          backgroundColor: '#11172D',
-          color: '#F9FAF5',
-          padding: '0.9rem 2rem',
-          fontSize: '0.85rem',
-          letterSpacing: '0.1em',
-          textDecoration: 'none',
-          textTransform: 'uppercase',
-          fontWeight: 600,
-          borderRadius: '2px'
-        }}
-      >
-        RETURN HOME
-      </Link>
+      <Button href="/" variant="primary" hasArrow>
+        Return Home
+      </Button>
     </div>
   );
 }

@@ -1,23 +1,31 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useSound } from '@/providers/SoundEffectsProvider';
 import styles from './SoundToggle.module.css';
 
 export default function SoundToggle() {
   const { isMuted, toggleSound } = useSound();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const effectiveMuted = mounted ? isMuted : false;
 
   return (
     <div className={styles.wrapper}>
       <button
         type="button"
-        className={`${styles.toggleBtn} ${isMuted ? styles.muted : styles.active}`}
+        className={`${styles.toggleBtn} ${effectiveMuted ? styles.muted : styles.active}`}
         onClick={toggleSound}
-        aria-label={isMuted ? 'Unmute sound effects' : 'Mute sound effects'}
-        aria-pressed={!isMuted}
-        title={isMuted ? 'Sound: Muted (Click to enable)' : 'Sound: Enabled (Click to mute)'}
+        aria-label={effectiveMuted ? 'Unmute sound effects' : 'Mute sound effects'}
+        aria-pressed={!effectiveMuted}
+        title={effectiveMuted ? 'Sound: Muted (Click to enable)' : 'Sound: Enabled (Click to mute)'}
         suppressHydrationWarning
       >
-        {isMuted ? (
+        {effectiveMuted ? (
           /* Muted Speaker Icon with Diagonal Strike */
           <svg className={styles.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M11 5L6 9H2v6h4l5 4V5z" />
@@ -40,7 +48,7 @@ export default function SoundToggle() {
           </div>
         )}
         <span className={styles.label}>
-          {isMuted ? 'MUTED' : 'AUDIO'}
+          {effectiveMuted ? 'MUTED' : 'AUDIO'}
         </span>
       </button>
     </div>

@@ -1,14 +1,13 @@
 import AboutHero from '@/components/about/AboutHero';
 import AboutStory from '@/components/about/AboutStory';
+import AboutMission from '@/components/about/AboutMission';
+import AboutVision from '@/components/about/AboutVision';
 import AboutTimeline from '@/components/about/AboutTimeline';
 import AboutFacility from '@/components/about/AboutFacility';
 import AboutInfrastructure from '@/components/about/AboutInfrastructure';
 import AboutGlobalReach from '@/components/about/AboutGlobalReach';
 import AboutQuality from '@/components/about/AboutQuality';
-import AboutMission from '@/components/about/AboutMission';
-import AboutVision from '@/components/about/AboutVision';
 import AboutInsights from '@/components/about/AboutInsights';
-import AboutCTA from '@/components/about/AboutCTA';
 
 export const metadata = {
   title: 'About Us & Infrastructure — Twofold Paper Stationery Manufacturer',
@@ -24,32 +23,29 @@ export default function AboutUsPage() {
       {/* 02 — OUR STORY */}
       <AboutStory />
 
-      {/* 03 — HERITAGE / TIMELINE */}
-      <AboutTimeline />
-
-      {/* 04 — OUR MANUFACTURING FACILITY */}
-      <AboutFacility />
-
-      {/* 05 — INFRASTRUCTURE */}
-      <AboutInfrastructure />
-
-      {/* 06 — STEP-BY-STEP WORKFLOW (Pinned Editorial Storytelling) */}
-      <AboutGlobalReach />
-
-      {/* 07 — QUALITY & COMPLIANCE */}
-      <AboutQuality />
-
-      {/* 08 — OUR MISSION (twofold.com motion) */}
+      {/* 03 — OUR MISSION (Moved next to Our Story) */}
       <AboutMission />
 
-      {/* 09 — OUR VISION (twofold.com motion) */}
+      {/* 04 — OUR VISION (Moved next to Our Story) */}
       <AboutVision />
+
+      {/* 05 — HERITAGE / TIMELINE */}
+      <AboutTimeline />
+
+      {/* 06 — OUR MANUFACTURING FACILITY */}
+      <AboutFacility />
+
+      {/* 07 — INFRASTRUCTURE */}
+      <AboutInfrastructure />
+
+      {/* 08 — STEP-BY-STEP WORKFLOW */}
+      <AboutGlobalReach />
+
+      {/* 09 — QUALITY & COMPLIANCE */}
+      <AboutQuality />
 
       {/* 10 — DEDICATED INSIGHTS */}
       <AboutInsights />
-
-      {/* 11 — FINAL CTA */}
-      <AboutCTA />
     </main>
   );
 }

@@ -1,99 +1,117 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { useGSAP } from '@gsap/react';
-import { gsap } from '@/lib/gsap';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 import styles from './AboutQuality.module.css';
 
-const AUDIT_STAGES = [
+const COMPLIANCE_CARDS = [
   {
-    step: '01',
-    stage: 'SUBSTRATE VERIFICATION',
+    id: 'aa',
+    code: '01',
+    badge: 'AQL 2.5',
+    title: 'AQL Pre-Shipment Audit',
+    desc: 'Structured Acceptance Quality Limit sampling across every production batch prior to export container packing and seal verification.',
+    metric: 'AQL 2.5 PROTOCOL · CARTON DROP VERIFIED',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <polyline points="9 12 11 14 15 10" />
+      </svg>
+    ),
+  },
+  {
+    id: 'bb',
+    code: '02',
+    badge: 'LAB TESTED',
     title: 'Paper Substrate Verification',
-    desc: 'Paper GSM, opacity, tensile strength, and ink bleed resistance verified before reel-fed converting begins.',
+    desc: 'Paper GSM, opacity, tensile burst strength, and ink bleed resistance verified before reel-fed converting begins.',
     metric: 'GSM TOLERANCE ±2% · BURST FACTOR VERIFIED',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="16" y1="13" x2="8" y2="13" />
+        <line x1="16" y1="17" x2="8" y2="17" />
+        <circle cx="10" cy="9" r="1.5" />
+      </svg>
+    ),
   },
   {
-    step: '02',
-    stage: 'IN-LINE REGISTRATION',
+    id: 'cc',
+    code: '03',
+    badge: 'PRECISION',
     title: 'In-Line Registration Audits',
-    desc: 'Continuous automated checks on ruling line alignment, fold crease accuracy, and stitch tension during runs.',
-    metric: 'ALIGNMENT ±0.15MM · SPINE CREASE CALIBRATED',
+    desc: 'Continuous automated checks on ruling line alignment, fold crease accuracy, and spine stitch tension during active machine runs.',
+    metric: 'ALIGNMENT ±0.15MM · SPINE CALIBRATED',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="22" y1="12" x2="18" y2="12" />
+        <line x1="6" y1="12" x2="2" y2="12" />
+        <line x1="12" y1="6" x2="12" y2="2" />
+        <line x1="12" y1="22" x2="12" y2="18" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+    ),
   },
   {
-    step: '03',
-    stage: 'PRE-SHIPMENT AUDIT',
-    title: 'AQL Pre-Shipment Inspection',
-    desc: 'Structured Acceptance Quality Limit sampling across every production batch prior to export packing and sealing.',
-    metric: 'AQL 2.5 SAMPLING PROTOCOL · CARTON DROP VERIFIED',
+    id: 'dd',
+    code: '04',
+    badge: 'JNPT EXPORT',
+    title: 'Container Maritime Clearance',
+    desc: 'Direct container stuffing, pallet humidity protection, and zero-discrepancy export documentation prior to JNPT vessel loading.',
+    metric: 'NHAVA SHEVA CORRIDOR · BATCH CODING',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+        <line x1="12" y1="22.08" x2="12" y2="12" />
+      </svg>
+    ),
   },
 ];
 
 export default function AboutQuality() {
   const sectionRef = useRef(null);
-  const headlineRef = useRef(null);
-  const stagesRef = useRef(null);
+  const cardsRef = useRef(null);
   const proofingRef = useRef(null);
+  const [activeCardId, setActiveCardId] = useState('aa');
 
   useGSAP(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) return;
 
+    // Refresh ScrollTrigger to recalculate after pinned sections
+    ScrollTrigger.refresh();
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: 'top 75%',
+        start: 'top 85%',
         once: true,
       },
       defaults: { ease: 'power3.out' },
     });
 
-    // Top calibration header bar
-    tl.from(`.${styles.calibrationBar}`, {
-      y: -15,
-      opacity: 0,
-      duration: 0.6,
-    })
-    // Massive headline reveal
-    .from(headlineRef.current?.children || [], {
-      y: 45,
-      opacity: 0,
-      stagger: 0.12,
-      duration: 0.9,
-    }, '-=0.3')
-    // Lead narrative thesis
-    .from(`.${styles.thesisText}`, {
-      y: 25,
-      opacity: 0,
-      duration: 0.7,
-    }, '-=0.4')
-    // 3 Inspection drafting stages
-    .from(stagesRef.current?.children || [], {
-      y: 35,
-      opacity: 0,
-      stagger: 0.15,
-      duration: 0.8,
-    }, '-=0.3')
-    // QC Specimen proofing desk reveal
+    tl.fromTo(
+      `.${styles.header}`,
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6 }
+    )
+    .fromTo(
+      cardsRef.current?.children || [],
+      { y: 25, opacity: 0 },
+      { y: 0, opacity: 1, stagger: 0.1, duration: 0.65 },
+      '-=0.3'
+    )
     .fromTo(
       proofingRef.current,
-      { clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)', y: 30 },
-      { clipPath: 'polygon(0 0%, 100% 0%, 100% 100%, 0 100%)', y: 0, duration: 1.1, ease: 'power4.inOut' },
-      '-=0.4'
+      { y: 25, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.7 },
+      '-=0.3'
     );
-
-    // Subtle parallax scrub on inspection photo
-    gsap.to(`.${styles.inspectionImg}`, {
-      yPercent: 8,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: proofingRef.current,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1.2,
-      },
-    });
 
   }, { scope: sectionRef });
 
@@ -106,117 +124,69 @@ export default function AboutQuality() {
     >
       <div className={styles.inner}>
 
-        {/* ── TOP CALIBRATION & REGISTRATION BAR ── */}
-        <div className={styles.calibrationBar}>
-          <div className={styles.regTarget}>
-            <span className={styles.targetIcon}>⌖</span>
-            <span className={styles.targetText}>
-              QUALITY ASSURANCE SPECIFICATION // ISO 2859-1 &amp; AQL 2.5 PROTOCOL
-            </span>
+        {/* ── SECTION MASTHEAD (Where Compliance Meets Scale) ── */}
+        <div className={styles.header}>
+          <div className={styles.pillWrap}>
+            <span className={styles.compliancePill}>QUALITY &amp; COMPLIANCE</span>
           </div>
-
-          <div className={styles.calibrationSwatches} aria-hidden="true">
-            <span className={`${styles.swatch} ${styles.cyan}`} title="Cyan" />
-            <span className={`${styles.swatch} ${styles.magenta}`} title="Magenta" />
-            <span className={`${styles.swatch} ${styles.yellow}`} title="Yellow" />
-            <span className={`${styles.swatch} ${styles.black}`} title="Key Black" />
-            <span className={`${styles.swatch} ${styles.gold}`} title="Twofold Gold" />
-            <span className={styles.accuracyTag}>TOLERANCE ±0.15MM</span>
-          </div>
+          <h2 className={styles.headline}>
+            Where Compliance<br />
+            <em>Meets Scale</em>
+          </h2>
+          <p className={styles.subhead}>
+            Every product is inspected against defined AQL (Acceptable Quality Limit) standards before
+            it leaves our Palghar facility, delivering structured quality and operational clarity across international shipments.
+          </p>
         </div>
 
-        {/* ── OVERSIZED EDITORIAL MASTHEAD & THESIS ── */}
-        <div className={styles.mastheadGrid}>
-          <div className={styles.headlineCol}>
-            <span className={styles.eyebrow}>QUALITY &amp; COMPLIANCE</span>
-            <h2 className={styles.headline} ref={headlineRef}>
-              <span className={styles.headlineRow}>Consistency</span>
-              <span className={styles.headlineRow}>
-                <em>Before Dispatch.</em>
-              </span>
-            </h2>
-          </div>
-
-          <div className={styles.thesisCol}>
-            <p className={styles.thesisText}>
-              Every product is inspected against defined AQL (Acceptable Quality Limit)
-              standards before it leaves our facility, ensuring consistent quality across
-              every shipment — whether it&apos;s a trial order or a container-load consignment.
-            </p>
-            <div className={styles.exportBadge}>
-              <span className={styles.goldBullet} />
-              <span className={styles.exportBadgeText}>
-                FULL CONTAINER BATCH CODING &amp; PRE-SHIPMENT AUDITING
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* ── 3-STAGE HORIZONTAL INSPECTION DRAFTING SPREAD (REPLACING THE OLD LIST) ── */}
-        <div className={styles.stagesGrid} ref={stagesRef}>
-          {AUDIT_STAGES.map((audit) => (
-            <div key={audit.step} className={styles.stageCard}>
-              <div className={styles.stageTop}>
-                <span className={styles.stepNum}>{audit.step}</span>
-                <span className={styles.stageCode}>
-                  <span className={styles.stageCrosshair}>⌖</span> {audit.stage}
-                </span>
+        {/* ── UNIFORM COMPLIANCE CARDS GRID ── */}
+        <div className={styles.staggeredGrid} ref={cardsRef}>
+          {COMPLIANCE_CARDS.map((card) => (
+            <div
+              key={card.id}
+              className={styles.staggerCard}
+              suppressHydrationWarning
+            >
+              {/* Top Code & Badge */}
+              <div className={styles.cardTop}>
+                <div className={styles.iconContainer}>
+                  {card.icon}
+                </div>
+                <span className={styles.cardBadgePill}>{card.badge}</span>
               </div>
 
-              <div className={styles.stageContent}>
-                <h3 className={styles.stageTitle}>{audit.title}</h3>
-                <p className={styles.stageDesc}>{audit.desc}</p>
+              {/* Content */}
+              <div className={styles.cardBody}>
+                <span className={styles.codeText}>PROTOCOL {card.code}</span>
+                <h3 className={styles.cardHeading}>{card.title}</h3>
+                <p className={styles.cardDescription}>{card.desc}</p>
               </div>
 
-              <div className={styles.stageFooter}>
-                <span className={styles.metricLabel}>VERIFICATION CRITERIA</span>
-                <span className={styles.metricVal}>{audit.metric}</span>
+              {/* Metric Footer */}
+              <div className={styles.cardFooter}>
+                <span className={styles.metricText}>{card.metric}</span>
               </div>
             </div>
           ))}
         </div>
 
-        {/* ── QC INSPECTION SPECIMEN PROOFING BENCH (CONCEPTUAL VISUAL STORY) ── */}
+        {/* ── QC INSPECTION SPECIMEN BENCH FOOTER (Authentic Factory Proof) ── */}
         <div className={styles.proofingSpread} ref={proofingRef}>
-          
-          {/* Printed Precision Millimeter Ruler along top edge */}
-          <div className={styles.millimeterRuler} aria-hidden="true">
-            <span className={styles.rulerMark}>0mm</span>
-            <span className={styles.rulerTick} />
-            <span className={styles.rulerMark}>50mm</span>
-            <span className={styles.rulerTick} />
-            <span className={styles.rulerMark}>100mm</span>
-            <span className={styles.rulerTick} />
-            <span className={styles.rulerMark}>150mm</span>
-            <span className={styles.rulerTick} />
-            <span className={styles.rulerMark}>200mm</span>
-            <span className={styles.rulerTick} />
-            <span className={styles.rulerMark}>250mm</span>
-            <span className={styles.rulerTick} />
-            <span className={styles.rulerMark}>300mm</span>
-            <span className={styles.rulerTick} />
-            <span className={styles.rulerMark}>350mm</span>
-            <span className={styles.rulerTick} />
-            <span className={styles.rulerMark}>400mm</span>
-          </div>
-
           <div className={styles.specimenFrame}>
             <Image
               src="/images/editorial/aql-inspection.jpg"
               alt="Twofold quality assurance specialist carrying out tactile paper substrate, ruling, and spine binding inspection"
               fill
-              sizes="(max-width: 1400px) 100vw, 1380px"
+              sizes="(max-width: 1400px) 100vw, 1280px"
               className={styles.inspectionImg}
             />
             <div className={styles.specimenScrim} />
 
-            {/* Inset Archival QC Specimen Tag */}
             <div className={styles.specimenTagTL}>
               <span className={styles.specimenTagNum}>QC SPECIMEN NO. 2624</span>
               <span className={styles.specimenTagTitle}>PALGHAR QUALITY AUDIT WORKSTATION</span>
             </div>
 
-            {/* Official Inspection Verification Seal */}
             <div className={styles.qcStamp}>
               <div className={styles.qcStampInner}>
                 <span className={styles.stampCheck}>✓</span>
@@ -227,12 +197,10 @@ export default function AboutQuality() {
               </div>
             </div>
 
-            {/* Bottom Citation */}
             <div className={styles.specimenCaption}>
               FIG. 03 — SPECIALIST CONDUCTING TACTILE SUBSTRATE, SPINE BINDING &amp; RULING INSPECTION PRIOR TO CONTAINER PACKING
             </div>
           </div>
-
         </div>
 
       </div>

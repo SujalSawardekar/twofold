@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import Button from '@/components/ui/Button';
 import styles from './Insights.module.css';
 
 const ARTICLES = [
@@ -70,9 +71,11 @@ export default function Insights() {
             </p>
           </div>
 
-          <Link href="/blog" className={styles.ctaBtn}>
-            View All Blogs →
-          </Link>
+          <div style={{ flexShrink: 0 }}>
+            <Button href="/blog" variant="primary" hasArrow>
+              View All Blogs
+            </Button>
+          </div>
         </div>
 
         {/* ── ASYMMETRIC GRID: FEATURED LEFT + 2x2 GRID RIGHT ── */}

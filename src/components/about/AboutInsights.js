@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import Button from '@/components/ui/Button';
 import styles from './AboutInsights.module.css';
 
 const INSIGHT_POSTS = [
@@ -49,9 +50,11 @@ export default function AboutInsights() {
             </p>
           </div>
 
-          <Link href="/blog" className={styles.allBtn}>
-            Explore All Insights →
-          </Link>
+          <div style={{ flexShrink: 0 }}>
+            <Button href="/blog" variant="primary" hasArrow>
+              Explore All Insights
+            </Button>
+          </div>
         </div>
 
         {/* 3-Column Editorial Grid */}

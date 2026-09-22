@@ -3,8 +3,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
-import { useGSAP } from '@gsap/react';
-import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { useSound } from '@/providers/SoundEffectsProvider';
 import styles from './NotebookShowcase.module.css';
 
@@ -131,18 +129,16 @@ const products = [
   }
 ];
 
-const AUTO_DURATION = 4500; // 4.5 seconds per product auto-cycle
-const CIRCUMFERENCE = 2 * Math.PI * 14; // ~87.96
+const AUTO_DURATION = 4000; // 4.0 seconds per product auto-cycle
+const CIRCUMFERENCE = 2 * Math.PI * 14; // ~87.9646
 
 export default function NotebookShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const activeIndexRef = useRef(0);
-  const scrollWrapperRef = useRef(null);
-  const triggerRef = useRef(null);
-  const isUserScrollingRef = useRef(false);
-  const userScrollTimeoutRef = useRef(null);
-  const isHoveredRef = useRef(false);
+  const sectionRef = useRef(null);
+  const pinContainerRef = useRef(null);
+  const isTransitioningRef = useRef(false);
 
   const { playClick, playSlide, playHover } = useSound();
 
@@ -151,143 +147,159 @@ export default function NotebookShowcase() {
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
 
-  // Navigate to product with instant zero-lag state update + scroll alignment
-  const goToProduct = useCallback((index, isAuto = false) => {
+  // Navigate to specific product
+  const goToProduct = useCallback((index) => {
     if (index < 0 || index >= products.length) return;
+    setProgress(0);
     setActiveIndex(index);
     activeIndexRef.current = index;
-    setProgress(0);
     try {
       playSlide?.();
     } catch {
       // safe fallback
     }
-
-    if (triggerRef.current) {
-      const start = triggerRef.current.start;
-      const end = triggerRef.current.end;
-      const totalProducts = products.length;
-      const targetProgress = (index + 0.5) / totalProducts;
-      const targetY = start + targetProgress * (end - start);
-
-      if (typeof window !== 'undefined') {
-        if (window.lenis) {
-          window.lenis.scrollTo(targetY, { duration: isAuto ? 1.0 : 0.5, lock: false });
-        } else {
-          window.scrollTo({ top: targetY, behavior: 'smooth' });
-        }
-      }
-    }
   }, [playSlide]);
 
   const handleNext = useCallback(() => {
-    const nextIdx = (activeIndexRef.current + 1) % products.length;
+    const cur = activeIndexRef.current;
+    const nextIdx = (cur + 1) % products.length;
     goToProduct(nextIdx);
   }, [goToProduct]);
 
   const handlePrev = useCallback(() => {
-    const prevIdx = (activeIndexRef.current - 1 + products.length) % products.length;
+    const cur = activeIndexRef.current;
+    const prevIdx = (cur - 1 + products.length) % products.length;
     goToProduct(prevIdx);
   }, [goToProduct]);
 
-  // Track active user scrolling (wheel or touch)
+  // ── Step-Locked Scroll & Gesture Handling ──
+  // Keeps the showcase stuck on screen through all circles (01 -> 06).
+  // Only releases downward to the footer when the user scrolls on the LAST circle (06).
   useEffect(() => {
-    const handleUserScroll = () => {
-      isUserScrollingRef.current = true;
-      clearTimeout(userScrollTimeoutRef.current);
-      userScrollTimeoutRef.current = setTimeout(() => {
-        isUserScrollingRef.current = false;
-      }, 1200);
-    };
+    let lastWheelTime = 0;
+    const WHEEL_COOLDOWN = 450; // ms between discrete step advances
+    let touchStartY = 0;
 
-    window.addEventListener('wheel', handleUserScroll, { passive: true });
-    window.addEventListener('touchmove', handleUserScroll, { passive: true });
+    const onWheel = (e) => {
+      const cur = activeIndexRef.current;
+      const deltaY = e.deltaY;
 
-    return () => {
-      window.removeEventListener('wheel', handleUserScroll);
-      window.removeEventListener('touchmove', handleUserScroll);
-      clearTimeout(userScrollTimeoutRef.current);
-    };
-  }, []);
+      if (Math.abs(deltaY) < 15) return;
 
-  // ── GSAP ScrollTrigger: Sticky Pinning + Scroll to Footer at the end ──
-  useGSAP(() => {
-    const wrapper = scrollWrapperRef.current;
-    if (!wrapper) return;
+      const now = performance.now();
+      const scrollY = window.scrollY || window.pageYOffset || 0;
 
-    const totalProducts = products.length;
-    const scrollDistance = totalProducts * 600;
+      // When showcase is at the top of the viewport:
+      if (scrollY <= 80) {
+        if (deltaY > 0) {
+          // Scrolling DOWN:
+          // If we haven't reached the last circle (06), intercept and step forward
+          if (cur < products.length - 1) {
+            e.preventDefault();
+            e.stopPropagation();
 
-    const st = ScrollTrigger.create({
-      trigger: wrapper,
-      start: 'top top',
-      end: `+=${scrollDistance}`,
-      pin: true,
-      anticipatePin: 1,
-      scrub: 0.3,
-      onUpdate: (self) => {
-        // Only drive product changes from scroll if user is actively scrolling
-        if (isUserScrollingRef.current) {
-          const p = self.progress;
-          const targetIndex = Math.min(
-            totalProducts - 1,
-            Math.max(0, Math.floor(p * totalProducts))
-          );
-
-          if (targetIndex !== activeIndexRef.current) {
-            activeIndexRef.current = targetIndex;
-            setActiveIndex(targetIndex);
-            setProgress(0);
-            try {
-              playSlide?.();
-            } catch {
-              // safe fallback
+            if (now - lastWheelTime > WHEEL_COOLDOWN) {
+              lastWheelTime = now;
+              goToProduct(cur + 1);
             }
-          } else {
-            // Update circular progress ring to reflect scroll progress inside current slice
-            const sliceProg = (p * totalProducts) % 1;
-            setProgress(sliceProg);
+            return false;
+          }
+          // If cur === products.length - 1 (Circle 06), ALLOW normal downward scroll to footer!
+        } else if (deltaY < 0) {
+          // Scrolling UP:
+          // If not at the first product, step backward
+          if (cur > 0) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (now - lastWheelTime > WHEEL_COOLDOWN) {
+              lastWheelTime = now;
+              goToProduct(cur - 1);
+            }
+            return false;
           }
         }
-      },
-    });
+      }
+    };
 
-    triggerRef.current = st;
+    const onTouchStart = (e) => {
+      if (e.touches && e.touches[0]) {
+        touchStartY = e.touches[0].clientY;
+      }
+    };
+
+    const onTouchMove = (e) => {
+      if (!e.touches || !e.touches[0]) return;
+      const touchEndY = e.touches[0].clientY;
+      const diff = touchStartY - touchEndY;
+      if (Math.abs(diff) < 35) return;
+
+      const now = performance.now();
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      const cur = activeIndexRef.current;
+
+      if (scrollY <= 80) {
+        if (diff > 0) {
+          // Swipe UP = Scroll DOWN
+          if (cur < products.length - 1) {
+            e.preventDefault();
+            if (now - lastWheelTime > WHEEL_COOLDOWN) {
+              lastWheelTime = now;
+              touchStartY = touchEndY;
+              goToProduct(cur + 1);
+            }
+          }
+        } else {
+          // Swipe DOWN = Scroll UP
+          if (cur > 0) {
+            e.preventDefault();
+            if (now - lastWheelTime > WHEEL_COOLDOWN) {
+              lastWheelTime = now;
+              touchStartY = touchEndY;
+              goToProduct(cur - 1);
+            }
+          }
+        }
+      }
+    };
+
+    window.addEventListener('wheel', onWheel, { passive: false, capture: true });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false, capture: true });
 
     return () => {
-      st.kill();
+      window.removeEventListener('wheel', onWheel, { capture: true });
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove, { capture: true });
     };
-  }, [playSlide]);
+  }, [goToProduct]);
 
-  // ── Auto-Advance Countdown (Runs continuously when user is not manually scrolling or hovering) ──
+  // ── Smooth Circular Progress Countdown (0% to 100%, then advances to next product) ──
   useEffect(() => {
     let animFrame;
-    let lastTime = performance.now();
+    const startTime = performance.now();
+    setProgress(0);
 
     const tick = (now) => {
-      const delta = now - lastTime;
-      lastTime = now;
+      const elapsed = now - startTime;
+      const currentProg = Math.min(1, elapsed / AUTO_DURATION);
+      setProgress(currentProg);
 
-      if (!isHoveredRef.current && !isUserScrollingRef.current) {
-        setProgress((prev) => {
-          const nextVal = prev + delta / AUTO_DURATION;
-          if (nextVal >= 1) {
-            const nextIdx = (activeIndexRef.current + 1) % products.length;
-            goToProduct(nextIdx, true);
-            return 0;
-          }
-          return nextVal;
-        });
+      if (currentProg >= 1) {
+        // Complete circle is finished! Seamlessly switch to next product
+        const cur = activeIndexRef.current;
+        const nextIdx = (cur + 1) % products.length;
+        goToProduct(nextIdx);
+      } else {
+        animFrame = requestAnimationFrame(tick);
       }
-
-      animFrame = requestAnimationFrame(tick);
     };
 
     animFrame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(animFrame);
-  }, [goToProduct]);
+  }, [activeIndex, goToProduct]);
 
-  // Keyboard navigation
+  // Keyboard navigation (Arrow keys)
   useEffect(() => {
     const onKeyDown = (e) => {
       if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
@@ -303,14 +315,14 @@ export default function NotebookShowcase() {
   }, [handleNext, handlePrev]);
 
   return (
-    <div 
-      ref={scrollWrapperRef} 
-      className={styles.scrollWrapper}
-      onMouseEnter={() => { isHoveredRef.current = true; }}
-      onMouseLeave={() => { isHoveredRef.current = false; }}
+    <section 
+      ref={sectionRef} 
+      className={styles.section} 
+      id="notebook-showcase" 
       aria-label="Twofold Notebook Range Editorial Showcase"
     >
-      <div className={styles.fullBleedShowcase}>
+      <div className={styles.pinContainer} ref={pinContainerRef}>
+        <div className={styles.fullBleedShowcase}>
         {/* ── LEFT: Full-Bleed Photography Spread (~55%) ── */}
         <div className={styles.visualSpread}>
           {products.map((p, idx) => {
@@ -500,5 +512,6 @@ export default function NotebookShowcase() {
         </div>
       </div>
     </div>
-  );
+  </section>
+);
 }

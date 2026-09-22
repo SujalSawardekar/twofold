@@ -54,8 +54,9 @@ export default function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className={styles.emailInput}
+                  suppressHydrationWarning
                 />
-                <button type="submit" className={styles.subscribeBtn}>
+                <button type="submit" className={styles.subscribeBtn} suppressHydrationWarning>
                   {subscribed ? 'Subscribed!' : 'Subscribe'}
                 </button>
               </form>
@@ -144,7 +145,7 @@ export default function Footer() {
 
           {/* ── BOTTOM BAR: COPYRIGHT & LEGAL ── */}
           <div className={styles.bottomBar}>
-            <p className={styles.copyText}>© {new Date().getFullYear()} Twofold Manufacturing. All rights reserved.</p>
+            <p className={styles.copyText} suppressHydrationWarning>© {new Date().getFullYear()} Twofold Manufacturing. All rights reserved.</p>
             <div className={styles.legalLinks}>
               <Link href="/privacy-policy" className={styles.legalLink}>Privacy Policy</Link>
               <Link href="/terms" className={styles.legalLink}>Terms of Service</Link>

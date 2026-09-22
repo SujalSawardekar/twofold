@@ -15,24 +15,25 @@
 .pinnedViewport {
   position: relative;
   width: 100%;
-  height: 100vh;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
+  padding: 3rem 0;
   box-sizing: border-box;
 }
 
 .inner {
-  max-width: var(--container-max, 1360px);
+  max-width: var(--container-max, 1280px);
   width: 100%;
   margin: 0 auto;
-  padding: clamp(2rem, 5vh, 4rem) clamp(20px, 3.5vw, 48px);
+  padding: 0 clamp(20px, 3.5vw, 48px);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 85vh;
+  justify-content: center;
+  gap: 2.5rem;
+  box-sizing: border-box;
 }
 
 /* Eyebrow */
@@ -61,8 +62,7 @@
 .statementBox {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.5rem, 1.5vh, 1.25rem);
-  margin: auto 0;
+  gap: clamp(0.4rem, 1.2vh, 0.9rem);
 }
 
 .phraseRow1 {
@@ -71,24 +71,24 @@
 
 .leadWord {
   font-family: var(--font-display, 'The youngest serif', Georgia, serif);
-  font-size: clamp(2.4rem, 4.8vw, 4.4rem);
+  font-size: clamp(2rem, 3.6vw, 3.5rem);
   font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.025em;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   color: #4B5563;
 }
 
 .phraseRow2 {
-  padding-left: clamp(1rem, 4vw, 4rem);
+  padding-left: clamp(1rem, 3vw, 3.5rem);
   will-change: transform, opacity;
 }
 
 .contrastWord {
   font-family: var(--font-display, 'The youngest serif', Georgia, serif);
-  font-size: clamp(2.4rem, 4.8vw, 4.4rem);
+  font-size: clamp(2rem, 3.6vw, 3.5rem);
   font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.025em;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   color: var(--color-navy, #11172D);
   text-decoration: underline;
   text-decoration-color: rgba(201, 162, 74, 0.4);
@@ -101,10 +101,10 @@
 
 .climaxWord {
   font-family: var(--font-display, 'The youngest serif', Georgia, serif);
-  font-size: clamp(2.8rem, 5.8vw, 5.4rem);
+  font-size: clamp(2.4rem, 4.5vw, 4.2rem);
   font-weight: 400;
-  line-height: 1.04;
-  letter-spacing: -0.03em;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
   color: var(--color-navy, #11172D);
   margin: 0;
   transition: color 0.4s ease;
@@ -122,7 +122,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: clamp(1.5rem, 3vw, 3.5rem);
-  padding-top: clamp(1.5rem, 2.5vh, 2.5rem);
+  padding-top: 1.75rem;
   border-top: 1px solid var(--color-border-light, #EAE6DF);
 }
 

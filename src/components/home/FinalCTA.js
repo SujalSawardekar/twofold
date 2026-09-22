@@ -40,6 +40,8 @@ export default function FinalCTA() {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) return;
 
+    ScrollTrigger.refresh();
+
     // SVG paper fold line stroke animation
     if (foldLineRef.current) {
       const length = foldLineRef.current.getTotalLength();
@@ -54,38 +56,50 @@ export default function FinalCTA() {
         ease: 'power3.inOut',
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 75%',
+          start: 'top 80%',
           once: true,
         },
       });
     }
 
     // Headline upward reveal
-    gsap.from(headlineRef.current, {
-      y: 45,
-      opacity: 0,
-      duration: 1.1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top 70%',
-        once: true,
-      },
-    });
+    if (headlineRef.current) {
+      gsap.fromTo(
+        headlineRef.current,
+        { y: 35, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 75%',
+            once: true,
+          },
+        }
+      );
+    }
 
     // Sub-content & CTA stagger reveal
-    gsap.from(subContentRef.current, {
-      y: 30,
-      opacity: 0,
-      duration: 0.9,
-      delay: 0.25,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top 65%',
-        once: true,
-      },
-    });
+    if (subContentRef.current) {
+      gsap.fromTo(
+        subContentRef.current,
+        { y: 25, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          delay: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 70%',
+            once: true,
+          },
+        }
+      );
+    }
   }, { scope: sectionRef });
 
   return (

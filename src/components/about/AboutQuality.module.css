@@ -1,398 +1,268 @@
-/* ══════════════════════════════════════════════════════
-   ABOUT QUALITY — Chapter 07 (Precision Inspection & Proofing Desk)
-   Conceptual Quality Control Experience · Technical Drafting Grid
-   (Zero 2-Column Generic List · Pure Print & Inspection Craft)
-   ══════════════════════════════════════════════════════ */
-
 .section {
   position: relative;
-  background-color: var(--color-warm-white, #F9FAF5);
+  background-color: var(--color-warm-white, #FAF8F5);
   color: var(--color-navy, #11172D);
-  padding: clamp(5.5rem, 9vw, 9rem) 0;
-  width: 100%;
+  padding: clamp(4.5rem, 6vw, 6rem) 1.5rem clamp(4rem, 5vw, 5rem);
   overflow: hidden;
-  border-bottom: 1px solid var(--color-border-light, #EAE6DF);
+  border-top: 1px solid var(--color-border-light, #EAE6DF);
 }
 
 .inner {
-  max-width: var(--container-max, 1380px);
+  max-width: var(--container-max, 1280px);
   margin: 0 auto;
-  padding: 0 clamp(20px, 3.5vw, 48px);
-}
-
-/* ── Top Calibration & Registration Bar ── */
-.calibrationBar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 1.25rem;
-  margin-bottom: clamp(2.5rem, 4vw, 3.8rem);
-  border-bottom: 1px solid var(--color-border-light, #EAE6DF);
-  font-family: var(--font-body, 'Gramatika', sans-serif);
-}
-
-.regTarget {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-}
-
-.targetIcon {
-  font-size: 0.95rem;
-  color: var(--color-gold, #C9A24A);
-  line-height: 1;
-}
-
-.targetText {
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-steel-grey, #8E99A4);
-}
-
-.calibrationSwatches {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-
-.swatch {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  display: inline-block;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.cyan { background-color: #00A3E0; }
-.magenta { background-color: #E4007C; }
-.yellow { background-color: #FFD100; }
-.black { background-color: #11172D; }
-.gold { background-color: #C9A24A; }
-
-.accuracyTag {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-gold, #C9A24A);
-  margin-left: 0.5rem;
-}
-
-/* ── Oversized Masthead & Thesis Grid ── */
-.mastheadGrid {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(2.5rem, 5vw, 6rem);
-  align-items: flex-end;
-  margin-bottom: clamp(3rem, 5vw, 4.5rem);
-}
-
-.headlineCol {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 3.5rem;
 }
 
-.eyebrow {
+/* ── MASTHEAD ── */
+.header {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pillWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.compliancePill {
   font-family: var(--font-body, 'Gramatika', sans-serif);
   font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-gold, #C9A24A);
+  background: rgba(201, 162, 74, 0.08);
+  border: 1px solid rgba(201, 162, 74, 0.25);
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
 }
 
 .headline {
   font-family: var(--font-display, 'The youngest serif', Georgia, serif);
-  font-size: clamp(3rem, 6.2vw, 5.8rem);
+  font-size: clamp(2.4rem, 4.2vw, 3.8rem);
   font-weight: 400;
-  line-height: 0.98;
-  letter-spacing: -0.03em;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   color: var(--color-navy, #11172D);
   margin: 0;
-  display: flex;
-  flex-direction: column;
 }
 
-.headlineRow {
-  display: block;
-}
-
-.headlineRow em {
+.headline em {
   font-style: italic;
-  font-family: var(--font-display, 'The youngest serif', Georgia, serif);
-  color: var(--color-navy, #11172D);
-}
-
-.thesisCol {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  padding-left: clamp(1.25rem, 2vw, 2.25rem);
-  border-left: 2px solid var(--color-gold, #C9A24A);
-}
-
-.thesisText {
-  font-family: var(--font-body, 'Gramatika', sans-serif);
-  font-size: clamp(1.05rem, 1.25vw, 1.22rem);
-  line-height: 1.7;
-  color: var(--color-navy, #11172D);
-  font-weight: 500;
-  margin: 0;
-}
-
-.exportBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.goldBullet {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: var(--color-gold, #C9A24A);
-}
-
-.exportBadgeText {
-  font-family: var(--font-body, 'Gramatika', sans-serif);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-steel-grey, #8E99A4);
-}
-
-/* ── 3-Stage Horizontal Inspection Drafting Grid ── */
-.stagesGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border: 1px solid var(--color-border-light, #EAE6DF);
-  background: #FFFFFF;
-  border-radius: 6px;
-  overflow: hidden;
-  margin-bottom: clamp(3rem, 5vw, 4.5rem);
-  box-shadow: 0 10px 30px -10px rgba(17, 23, 45, 0.05);
-}
-
-.stageCard {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: clamp(1.75rem, 2.5vw, 2.5rem);
-  border-right: 1px solid var(--color-border-light, #EAE6DF);
-  background-color: #FFFFFF;
-  transition: background-color 0.3s ease;
-}
-
-.stageCard:last-child {
-  border-right: none;
-}
-
-.stageCard:hover {
-  background-color: #FCFDFB;
-}
-
-.stageTop {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.85rem;
-  border-bottom: 1px dashed var(--color-border-light, #EAE6DF);
-}
-
-.stepNum {
-  font-family: var(--font-display, 'The youngest serif', Georgia, serif);
-  font-size: 2.2rem;
-  font-weight: 400;
-  line-height: 1;
   color: var(--color-gold, #C9A24A);
 }
 
-.stageCode {
+.subhead {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--color-charcoal, #4B5563);
+  margin: 0;
+}
+
+/* ── UNIFORM CARDS GRID (Brand Guidelines Palette) ── */
+.staggeredGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.staggerCard {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border-light, #EAE6DF);
+  border-radius: 1.75rem;
+  padding: 2.2rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 380px;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(17, 23, 45, 0.04);
+}
+
+.staggerCard:hover {
+  transform: translateY(-6px);
+  border-color: rgba(201, 162, 74, 0.45);
+  box-shadow: 0 16px 36px -8px rgba(17, 23, 45, 0.08);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.iconContainer {
+  width: 52px;
+  height: 52px;
+  border-radius: 1rem;
+  background: rgba(201, 162, 74, 0.08);
+  border: 1px solid rgba(201, 162, 74, 0.25);
+  color: var(--color-gold, #C9A24A);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.staggerCard:hover .iconContainer {
+  background: var(--color-gold, #C9A24A);
+  color: #FFFFFF;
+}
+
+.cardBadgePill {
   font-family: var(--font-body, 'Gramatika', sans-serif);
   font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0.12em;
   color: var(--color-steel-grey, #8E99A4);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
+  background: var(--color-warm-white, #FAF8F5);
+  border: 1px solid var(--color-border-light, #EAE6DF);
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
 }
 
-.stageCrosshair {
+.codeText {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 700;
   color: var(--color-gold, #C9A24A);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.stageContent {
+/* Card Body */
+.cardBody {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  margin-bottom: 2rem;
+  flex: 1;
 }
 
-.stageTitle {
+.cardHeading {
   font-family: var(--font-display, 'The youngest serif', Georgia, serif);
-  font-size: clamp(1.2rem, 1.4vw, 1.45rem);
-  font-weight: 500;
-  line-height: 1.25;
+  font-size: 1.35rem;
+  font-weight: 400;
+  line-height: 1.3;
   color: var(--color-navy, #11172D);
   margin: 0;
 }
 
-.stageDesc {
+.cardActive .cardHeading {
+  color: #FAF8F5;
+}
+
+.cardDescription {
   font-family: var(--font-body, 'Gramatika', sans-serif);
-  font-size: 0.88rem;
-  line-height: 1.7;
-  color: #4B5563;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--color-charcoal, #4B5563);
   margin: 0;
 }
 
-.stageFooter {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--color-border-light, #EAE6DF);
+.cardActive .cardDescription {
+  color: rgba(250, 248, 245, 0.85);
 }
 
-.metricLabel {
+/* Footer */
+.cardFooter {
+  border-top: 1px solid var(--color-border-light, #EAE6DF);
+  padding-top: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.cardActive .cardFooter {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.metricText {
   font-family: var(--font-body, 'Gramatika', sans-serif);
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--color-steel-grey, #8E99A4);
+}
+
+.cardActive .metricText {
   color: var(--color-gold, #C9A24A);
 }
 
-.metricVal {
-  font-family: var(--font-body, 'Gramatika', sans-serif);
-  font-size: 0.76rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--color-navy, #11172D);
-}
-
-/* ── QC Inspection Specimen Proofing Bench ── */
+/* ── PROOFING SPREAD FOOTER ── */
 .proofingSpread {
+  margin-top: 2.5rem;
   position: relative;
   width: 100%;
-  border: 1px solid var(--color-border-light, #EAE6DF);
-  border-radius: 6px;
-  background: #FFFFFF;
-  overflow: hidden;
-  box-shadow: 0 20px 50px -15px rgba(17, 23, 45, 0.1);
-}
-
-/* Precision Millimeter Ruler on top */
-.millimeterRuler {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 18px;
-  background: #F4F3EE;
-  border-bottom: 1px solid var(--color-border-light, #EAE6DF);
-  font-family: var(--font-body, monospace);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  color: #8E99A4;
-  user-select: none;
-}
-
-.rulerMark {
-  font-weight: 600;
-}
-
-.rulerTick {
-  width: 1px;
-  height: 8px;
-  background-color: #D1CEC6;
 }
 
 .specimenFrame {
   position: relative;
   width: 100%;
-  aspect-ratio: 21 / 9;
-  min-height: 380px;
+  height: 340px;
+  border-radius: 2rem;
   overflow: hidden;
+  border: 1px solid var(--color-border-light, #EAE6DF);
+  box-shadow: 0 10px 30px rgba(17, 23, 45, 0.05);
 }
 
 .inspectionImg {
   object-fit: cover;
-  object-position: center 30%;
-  transform: scale(1.03);
-  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.specimenFrame:hover .inspectionImg {
-  transform: scale(1.06);
+  object-position: center;
 }
 
 .specimenScrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(17, 23, 45, 0.15) 0%,
-    rgba(17, 23, 45, 0.05) 50%,
-    rgba(17, 23, 45, 0.75) 100%
-  );
-  pointer-events: none;
+  background: linear-gradient(180deg, rgba(17, 23, 45, 0.2) 0%, rgba(17, 23, 45, 0.75) 100%);
 }
 
-/* Inset Archival QC Specimen Tag */
 .specimenTagTL {
   position: absolute;
-  top: 18px;
-  left: 18px;
+  top: 1.5rem;
+  left: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  padding: 8px 14px;
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(250, 248, 245, 0.92);
   backdrop-filter: blur(8px);
-  border-radius: 4px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  border-left: 3px solid var(--color-gold, #C9A24A);
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-border-light, #EAE6DF);
 }
 
 .specimenTagNum {
   font-family: var(--font-body, 'Gramatika', sans-serif);
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
   color: var(--color-gold, #C9A24A);
 }
 
 .specimenTagTitle {
   font-family: var(--font-body, 'Gramatika', sans-serif);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 0.65rem;
   color: var(--color-navy, #11172D);
+  letter-spacing: 0.08em;
 }
 
-/* Official Inspection Verification Seal */
 .qcStamp {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
-  display: inline-flex;
-  align-items: center;
-  background: rgba(17, 23, 45, 0.92);
-  backdrop-filter: blur(8px);
-  padding: 10px 18px;
-  border-radius: 4px;
-  border: 1px solid rgba(201, 162, 74, 0.4);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  top: 1.5rem;
+  right: 1.5rem;
+  background: var(--color-navy, #11172D);
+  backdrop-filter: blur(10px);
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(201, 162, 74, 0.35);
 }
 
 .qcStampInner {
@@ -402,102 +272,86 @@
 }
 
 .stampCheck {
-  font-size: 1.1rem;
-  color: var(--color-gold, #C9A24A);
-  font-weight: 700;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  background: var(--color-gold, #C9A24A);
+  color: var(--color-navy, #11172D);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.9rem;
 }
 
 .stampText {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
 }
 
 .stampMain {
   font-family: var(--font-body, 'Gramatika', sans-serif);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
   color: #FFFFFF;
 }
 
 .stampSub {
   font-family: var(--font-body, 'Gramatika', sans-serif);
-  font-size: 0.62rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 0.6rem;
   color: var(--color-gold, #C9A24A);
 }
 
-/* Caption */
 .specimenCaption {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
   font-family: var(--font-body, 'Gramatika', sans-serif);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85);
-  max-width: 550px;
+  font-size: 0.7rem;
+  color: rgba(250, 248, 245, 0.85);
+  letter-spacing: 0.08em;
 }
 
-/* ── Responsive ── */
-@media (max-width: 1024px) {
-  .mastheadGrid {
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .staggeredGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .staggerCol1, .staggerCol2, .staggerCol3, .staggerCol4 {
+    transform: none;
+  }
+
+  .staggerCard {
+    min-height: auto;
+  }
+
+  .proofingSpread {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 4rem 1rem 4rem;
+  }
+
+  .staggeredGrid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.25rem;
   }
 
-  .thesisCol {
-    padding-left: 1.5rem;
-  }
-
-  .stagesGrid {
-    grid-template-columns: 1fr;
-    border-radius: 6px;
-  }
-
-  .stageCard {
-    border-right: none;
-    border-bottom: 1px solid var(--color-border-light, #EAE6DF);
-  }
-
-  .stageCard:last-child {
-    border-bottom: none;
+  .staggerCard {
+    padding: 1.75rem 1.5rem;
   }
 
   .specimenFrame {
-    aspect-ratio: 16 / 10;
-    min-height: 280px;
+    height: 260px;
   }
 
   .specimenCaption {
     display: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .calibrationBar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
-
-  .accuracyTag {
-    display: none;
-  }
-
-  .millimeterRuler {
-    display: none;
-  }
-
-  .qcStamp {
-    bottom: 14px;
-    right: 14px;
-    padding: 8px 12px;
   }
 }

@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
+import Button from '@/components/ui/Button';
 import * as d3Geo from 'd3-geo';
 import { feature } from 'topojson-client';
 import worldData from 'world-atlas/countries-110m.json';
@@ -58,9 +59,11 @@ export default function GlobalReach() {
               through Nhava Sheva (JNPT), India's premier container port.
             </p>
 
-            <Link href="/about-us" className={styles.ctaBtn}>
-              See Our Global Reach →
-            </Link>
+            <div style={{ marginTop: '2rem', marginBottom: '2.5rem' }}>
+              <Button href="/about-us" variant="primary" hasArrow>
+                See Our Global Reach
+              </Button>
+            </div>
 
             {/* Statistics Grid on Left Column below text */}
             <div className={styles.statsGrid}>

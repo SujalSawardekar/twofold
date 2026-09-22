@@ -31,35 +31,35 @@ export default function AboutVision() {
       },
     });
 
-    // Words travel dynamically through viewport at differential speeds
+    // Words travel smoothly into viewport within bounds
     tl.fromTo(
       word1Ref.current,
-      { xPercent: 50, opacity: 0 },
-      { xPercent: 0, opacity: 1, ease: 'power2.out', duration: 1 }
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, ease: 'power2.out', duration: 1 }
     )
     .fromTo(
       word2Ref.current,
-      { xPercent: -50, opacity: 0 },
-      { xPercent: 0, opacity: 1, ease: 'power2.out', duration: 1 },
-      '-=0.6'
+      { y: 25, opacity: 0 },
+      { y: 0, opacity: 1, ease: 'power2.out', duration: 1 },
+      '-=0.5'
     )
     .fromTo(
       word3Ref.current,
-      { yPercent: 40, opacity: 0 },
-      { yPercent: 0, opacity: 1, ease: 'power2.out', duration: 1 },
+      { y: 35, opacity: 0 },
+      { y: 0, opacity: 1, ease: 'power2.out', duration: 1 },
       '-=0.5'
     )
     .fromTo(
       imageCutoutRef.current,
-      { scale: 0.85, opacity: 0 },
+      { scale: 0.9, opacity: 0 },
       { scale: 1, opacity: 1, ease: 'power3.out', duration: 1.2 },
-      '-=0.8'
+      '-=0.6'
     )
-    .to({}, { duration: 0.8 })
+    .to({}, { duration: 0.6 })
     // Vision card content reveals at bottom
     .fromTo(
       cardRef.current,
-      { y: 50, opacity: 0 },
+      { y: 30, opacity: 0 },
       { y: 0, opacity: 1, ease: 'power3.out', duration: 1 },
       '-=0.2'
     );

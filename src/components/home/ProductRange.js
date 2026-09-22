@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import Button from '@/components/ui/Button';
 import styles from './ProductRange.module.css';
 
 export default function ProductRange() {
@@ -32,9 +33,11 @@ export default function ProductRange() {
               bound, centre stitched, and glue bound — manufactured for 
               high-volume global markets.
             </p>
-            <Link href="/products" className={styles.cta}>
-              View All Products →
-            </Link>
+            <div style={{ marginTop: '2rem' }}>
+              <Button href="/products" variant="primary" hasArrow>
+                View All Products
+              </Button>
+            </div>
           </div>
 
           {/* Right: product gallery */}

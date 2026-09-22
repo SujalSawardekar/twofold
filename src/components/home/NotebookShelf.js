@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Button from '@/components/ui/Button';
 import styles from './NotebookShelf.module.css';
 
 const products = [
@@ -135,12 +136,12 @@ export default function NotebookShelf() {
             </p>
 
             <div className={styles.ctas}>
-              <Link href="/products" className={styles.btnPrimary}>
+              <Button href="/products" variant="primary" hasArrow>
                 Explore Range
-              </Link>
-              <Link href="/contact-us" className={styles.btnGhost}>
+              </Button>
+              <Button href="/contact-us" variant="outline">
                 Request Samples
-              </Link>
+              </Button>
             </div>
 
             <div className={styles.stats}>
@@ -180,7 +181,7 @@ export default function NotebookShelf() {
                       <div className={styles.spineFace} style={{ background: p.color }}>
                         <div className={styles.spineShine} />
                         <div className={styles.spineGroove} />
-                        <span className={styles.mark}>P</span>
+                        <span className={styles.mark}>T</span>
                         <span className={styles.label}>{p.name}</span>
                       </div>
 
@@ -196,7 +197,7 @@ export default function NotebookShelf() {
                         <div className={styles.frontCoverOverlay}>
                           <div className={styles.frontHeader}>
                             <span className={styles.frontCode}>{p.code}</span>
-                            <span className={styles.frontBrand}>PAPERFORCE</span>
+                            <span className={styles.frontBrand}>TWOFOLD</span>
                           </div>
                           <div className={styles.frontTitleGroup}>
                             <h3 className={styles.frontTitle}>{p.name}</h3>

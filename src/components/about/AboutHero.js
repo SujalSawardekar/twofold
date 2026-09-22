@@ -18,35 +18,35 @@ export default function AboutHero() {
 
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    tl.from(`.${styles.eyebrow}`, {
-      y: 18,
-      opacity: 0,
-      duration: 0.6,
-      delay: 0.1,
-    })
-    .from(headlineRef.current, {
-      y: 40,
-      opacity: 0,
-      duration: 0.9,
-    }, '-=0.4')
-    .from(`.${styles.subtitle}`, {
-      y: 24,
-      opacity: 0,
-      duration: 0.7,
-    }, '-=0.5')
-    .from(pillsRef.current?.children || [], {
-      y: 16,
-      opacity: 0,
-      stagger: 0.08,
-      duration: 0.5,
-    }, '-=0.4')
-    .fromTo(imageFrameRef.current, {
-      clipPath: 'inset(0% 100% 0% 0%)',
-    }, {
-      clipPath: 'inset(0% 0% 0% 0%)',
-      duration: 1.2,
-      ease: 'power4.inOut',
-    }, '-=0.8');
+    tl.fromTo(
+      `.${styles.eyebrow}`,
+      { y: 18, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, delay: 0.1 }
+    )
+    .fromTo(
+      headlineRef.current,
+      { y: 35, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.85 },
+      '-=0.4'
+    )
+    .fromTo(
+      `.${styles.subtitle}`,
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.7 },
+      '-=0.5'
+    )
+    .fromTo(
+      pillsRef.current?.children || [],
+      { y: 16, opacity: 0 },
+      { y: 0, opacity: 1, stagger: 0.08, duration: 0.5 },
+      '-=0.4'
+    )
+    .fromTo(
+      imageFrameRef.current,
+      { clipPath: 'inset(0% 100% 0% 0%)' },
+      { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' },
+      '-=0.8'
+    );
 
     // Subtle parallax on image during scroll exit
     gsap.to(`.${styles.facilityImg}`, {

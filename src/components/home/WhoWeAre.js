@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Button from '@/components/ui/Button';
 import { useGSAP } from '@gsap/react';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 import styles from './WhoWeAre.module.css';
@@ -44,30 +45,38 @@ export default function WhoWeAre() {
     });
 
     // Text reveal
-    gsap.from(`.${styles.statement}`, {
-      y: 40,
-      opacity: 0,
-      duration: 1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: `.${styles.statement}`,
-        start: 'top 80%',
-        once: true,
-      },
-    });
+    gsap.fromTo(
+      `.${styles.statement}`,
+      { y: 35, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: `.${styles.statement}`,
+          start: 'top 85%',
+          once: true,
+        },
+      }
+    );
 
-    gsap.from(`.${styles.bodyBlock}`, {
-      y: 24,
-      opacity: 0,
-      duration: 0.8,
-      delay: 0.15,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: `.${styles.bodyBlock}`,
-        start: 'top 82%',
-        once: true,
-      },
-    });
+    gsap.fromTo(
+      `.${styles.bodyBlock}`,
+      { y: 24, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        delay: 0.15,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: `.${styles.bodyBlock}`,
+          start: 'top 85%',
+          once: true,
+        },
+      }
+    );
   }, { scope: sectionRef });
 
   return (
@@ -125,12 +134,11 @@ export default function WhoWeAre() {
                 ))}
               </div>
 
-              <Link href="/about-us" className={styles.cta}>
-                Read Our Story
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </Link>
+              <div style={{ marginTop: '2rem' }}>
+                <Button href="/about-us" variant="primary" hasArrow>
+                  Read Our Story
+                </Button>
+              </div>
             </div>
 
           </div>

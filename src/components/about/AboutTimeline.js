@@ -98,6 +98,7 @@ export default function AboutTimeline() {
                   onClick={() => setActiveIdx(i)}
                   className={`${styles.dotBtn} ${i === activeIdx ? styles.dotActive : ''}`}
                   aria-label={`Go to milestone 0${i + 1}`}
+                  suppressHydrationWarning
                 />
               ))}
             </div>

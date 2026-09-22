@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
-import styles from './page.module.css';
+import Button from '@/components/ui/Button';
 import ArticleCard from '@/components/ui/ArticleCard';
+import styles from './page.module.css';
 
 export default function BlogPage() {
   const articles = [
@@ -111,14 +111,17 @@ export default function BlogPage() {
           <p className={styles.newsletterText}>
             Stay updated on manufacturing insights and export knowledge.
           </p>
-          <div className={styles.newsletterForm}>
+          <form className={styles.newsletterForm} onSubmit={(e) => e.preventDefault()}>
             <input 
               type="email" 
               placeholder="Your email address" 
               className={styles.newsletterInput} 
+              required
             />
-            <button className={styles.newsletterBtn}>Subscribe</button>
-          </div>
+            <Button type="submit" variant="primary" size="default">
+              Subscribe
+            </Button>
+          </form>
         </div>
       </section>
     </main>

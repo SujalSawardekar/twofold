@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Button from '@/components/ui/Button';
 import { useGSAP } from '@gsap/react';
 import { gsap } from '@/lib/gsap';
 import styles from './Hero.module.css';
@@ -138,15 +139,26 @@ export default function Hero() {
   const contentColRef = useRef(null);
   const floatWrapperRef = useRef(null);
   const cardsDeckRef = useRef(null);
-  const currentSetRef = useRef(0);
   const autoTimerRef = useRef(null);
+  const isTransitioningRef = useRef(false);
+  const isInitialMountRef = useRef(true);
 
-  currentSetRef.current = currentSetIdx;
+  // ── Reset & Restart Auto-Advance Timer ──
+  const startTimer = useCallback(() => {
+    if (autoTimerRef.current) clearInterval(autoTimerRef.current);
+    autoTimerRef.current = setInterval(() => {
+      handleNext();
+    }, 6500);
+  }, []);
 
-  // ── Synchronized Slide Transition: Left Editorial Headline & Right Fanned Cards ──
+  // ── Synchronized Slide Transition ──
   const changeSet = useCallback((nextIdx) => {
-    if (isTransitioning || nextIdx === currentSetRef.current) return;
+    if (isTransitioningRef.current || nextIdx === currentSetIdx) return;
+    isTransitioningRef.current = true;
     setIsTransitioning(true);
+
+    // Reset timer on manual or programmatic slide change
+    if (autoTimerRef.current) clearInterval(autoTimerRef.current);
 
     const deckEl = cardsDeckRef.current;
     const colEl = contentColRef.current;
@@ -159,66 +171,6 @@ export default function Hero() {
     const tl = gsap.timeline({
       onComplete: () => {
         setCurrentSetIdx(nextIdx);
-
-        // After state updates DOM, animate in new slide content
-        requestAnimationFrame(() => {
-          const newSlots = deckEl?.querySelectorAll(`.${styles.cardSlot}`);
-          const newLines = colEl?.querySelectorAll(`.${styles.lineText}`);
-          const newBadge = colEl?.querySelector(`.${styles.badge}`);
-          const newSubtext = colEl?.querySelector(`.${styles.subtext}`);
-
-          // Animate in new left editorial headline lines through mask
-          if (newLines?.length) {
-            gsap.fromTo(
-              newLines,
-              { yPercent: 108 },
-              {
-                yPercent: 0,
-                duration: 0.72,
-                stagger: 0.06,
-                ease: 'power3.out',
-              }
-            );
-          }
-
-          if (newBadge) {
-            gsap.fromTo(
-              newBadge,
-              { opacity: 0, y: 10 },
-              { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }
-            );
-          }
-
-          if (newSubtext) {
-            gsap.fromTo(
-              newSubtext,
-              { opacity: 0, y: 14 },
-              { opacity: 1, y: 0, duration: 0.6, delay: 0.1, ease: 'power3.out' }
-            );
-          }
-
-          // Animate in new cards with clearProps so CSS hovers and rotations work seamlessly
-          if (newSlots?.length) {
-            gsap.fromTo(
-              newSlots,
-              { y: 30, opacity: 0, scale: 0.92 },
-              {
-                y: 0,
-                opacity: 1,
-                scale: 1,
-                stagger: 0.07,
-                duration: 0.55,
-                ease: 'power3.out',
-                clearProps: 'y,scale',
-                onComplete: () => {
-                  setIsTransitioning(false);
-                },
-              }
-            );
-          } else {
-            setIsTransitioning(false);
-          }
-        });
       },
     });
 
@@ -228,7 +180,8 @@ export default function Hero() {
         currentLines,
         {
           yPercent: -108,
-          duration: 0.35,
+          opacity: 0,
+          duration: 0.32,
           stagger: 0.03,
           ease: 'power2.in',
         },
@@ -237,11 +190,11 @@ export default function Hero() {
     }
 
     if (badgeEl) {
-      tl.to(badgeEl, { opacity: 0, y: -8, duration: 0.25, ease: 'power2.in' }, 0);
+      tl.to(badgeEl, { opacity: 0, y: -8, duration: 0.22, ease: 'power2.in' }, 0);
     }
 
     if (subtextEl) {
-      tl.to(subtextEl, { opacity: 0, y: -10, duration: 0.28, ease: 'power2.in' }, 0);
+      tl.to(subtextEl, { opacity: 0, y: -10, duration: 0.25, ease: 'power2.in' }, 0);
     }
 
     // Animate out current right cards
@@ -253,42 +206,44 @@ export default function Hero() {
           opacity: 0,
           scale: 0.94,
           stagger: 0.04,
-          duration: 0.32,
+          duration: 0.3,
           ease: 'power2.in',
         },
         0
       );
     }
-  }, [isTransitioning]);
+  }, [currentSetIdx]);
 
-  const handleNext = () => {
-    const next = (currentSetRef.current + 1) % SLIDES.length;
-    changeSet(next);
-  };
+  const handleNext = useCallback(() => {
+    setCurrentSetIdx((prev) => {
+      const next = (prev + 1) % SLIDES.length;
+      changeSet(next);
+      return prev;
+    });
+  }, [changeSet]);
 
-  const handlePrev = () => {
-    const prev = (currentSetRef.current - 1 + SLIDES.length) % SLIDES.length;
-    changeSet(prev);
-  };
+  const handlePrev = useCallback(() => {
+    setCurrentSetIdx((prev) => {
+      const prevIdx = (prev - 1 + SLIDES.length) % SLIDES.length;
+      changeSet(prevIdx);
+      return prev;
+    });
+  }, [changeSet]);
 
   // ── Auto-advance Loop ──
   useEffect(() => {
-    autoTimerRef.current = setInterval(() => {
-      handleNext();
-    }, 6500);
-
+    startTimer();
     return () => {
       if (autoTimerRef.current) clearInterval(autoTimerRef.current);
     };
-  }, []);
+  }, [startTimer]);
 
-  // ── Initial Page-Load Reveal & Organic Floating ──
+  // ── Persistent Organic Floating Animation for Fanned Cards Deck ──
   useGSAP(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) return;
+    if (prefersReduced || !floatWrapperRef.current) return;
 
-    // Organic continuous floating of the fanned deck
-    gsap.to(floatWrapperRef.current, {
+    const floatTween = gsap.to(floatWrapperRef.current, {
       y: -10,
       rotationZ: -0.5,
       duration: 3.8,
@@ -297,39 +252,111 @@ export default function Hero() {
       repeat: -1,
     });
 
-    // Initial line-by-line masked headline reveal
-    const lines = contentColRef.current?.querySelectorAll(`.${styles.lineText}`);
+    return () => {
+      floatTween.kill();
+    };
+  }, { scope: heroRef });
+
+  // ── Reactive Entrance Animation Driven by currentSetIdx ──
+  useGSAP(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      isTransitioningRef.current = false;
+      setIsTransitioning(false);
+      return;
+    }
+
+    const colEl = contentColRef.current;
+    const deckEl = cardsDeckRef.current;
+    const isInitial = isInitialMountRef.current;
+
+    const lines = colEl?.querySelectorAll(`.${styles.lineText}`);
+    const badgeEl = colEl?.querySelector(`.${styles.badge}`);
+    const subtextEl = colEl?.querySelector(`.${styles.subtext}`);
+    const slots = deckEl?.querySelectorAll(`.${styles.cardSlot}`);
+
+    const tl = gsap.timeline({
+      delay: isInitial ? 0.15 : 0.05,
+      onComplete: () => {
+        isTransitioningRef.current = false;
+        setIsTransitioning(false);
+        if (isInitial) {
+          isInitialMountRef.current = false;
+        }
+        startTimer();
+      },
+    });
+
+    // Entrance: Title Lines through Mask
     if (lines?.length) {
-      gsap.fromTo(
+      tl.fromTo(
         lines,
-        { yPercent: 105 },
-        { yPercent: 0, duration: 0.85, stagger: 0.08, ease: 'power3.out', delay: 0.2 }
+        { yPercent: 108, opacity: 0 },
+        {
+          yPercent: 0,
+          opacity: 1,
+          duration: 0.72,
+          stagger: 0.06,
+          ease: 'power3.out',
+        },
+        0
       );
     }
 
-    gsap.from(`.${styles.badge}`,   { opacity: 0, y: 10, duration: 0.6, delay: 0.1, ease: 'power3.out' });
-    gsap.from(`.${styles.subtext}`, { opacity: 0, y: 15, duration: 0.7, delay: 0.45, ease: 'power3.out' });
-    gsap.from(`.${styles.ctas}`,    { opacity: 0, y: 15, duration: 0.6, delay: 0.65, ease: 'power3.out' });
+    // Entrance: Badge & Subtext
+    if (badgeEl) {
+      tl.fromTo(
+        badgeEl,
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' },
+        0
+      );
+    }
 
-    // Initial card deck entrance with clearProps
-    const initialSlots = cardsDeckRef.current?.querySelectorAll(`.${styles.cardSlot}`);
-    if (initialSlots) {
-      gsap.fromTo(
-        initialSlots,
-        { y: 45, opacity: 0, scale: 0.92 },
+    if (subtextEl) {
+      tl.fromTo(
+        subtextEl,
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
+        0.1
+      );
+    }
+
+    // Entrance: CTA row (initial mount only)
+    if (isInitial) {
+      const ctasEl = heroRef.current?.querySelector(`.${styles.ctas}`);
+      if (ctasEl) {
+        tl.fromTo(
+          ctasEl,
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
+          0.3
+        );
+      }
+    }
+
+    // Entrance: Cards with clearProps so CSS rotations & hovers work seamlessly
+    if (slots?.length) {
+      tl.fromTo(
+        slots,
+        { y: 35, opacity: 0, scale: 0.92 },
         {
           y: 0,
           opacity: 1,
           scale: 1,
-          duration: 0.85,
-          stagger: 0.1,
+          stagger: 0.08,
+          duration: 0.6,
           ease: 'power3.out',
-          delay: 0.3,
-          clearProps: 'y,scale',
-        }
+          clearProps: 'y,scale,opacity',
+        },
+        0.05
       );
     }
-  }, { scope: heroRef });
+
+    return () => {
+      tl.kill();
+    };
+  }, { scope: heroRef, dependencies: [currentSetIdx] });
 
   const activeSlide = SLIDES[currentSetIdx];
   const activeCards = activeSlide.cards;
@@ -410,31 +437,23 @@ export default function Hero() {
       {/* ── Unified Action Row: CTAs (Left) + Slide Controls (Right) Aligned on Same Baseline ── */}
       <div className={styles.bottomBar}>
         <div className={styles.ctas}>
-          <Link href="/products" className={styles.ctaPrimary}>
+          <Button
+            href="/products"
+            variant="primary"
+            size="default"
+            hasArrow
+          >
             Explore Our Products
-            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
-              <path
-                d="M3 7.5h9M9 4l3.5 3.5L9 11"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Link>
+          </Button>
 
-          <Link href="/contact-us" className={styles.ctaSecondary}>
+          <Button
+            href="/contact-us"
+            variant="outline"
+            size="default"
+            hasArrow
+          >
             Partner With Us
-            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
-              <path
-                d="M3 7.5h9M9 4l3.5 3.5L9 11"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Link>
+          </Button>
         </div>
 
         <div className={styles.controls} aria-label="Slide Controls">

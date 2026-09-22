@@ -22,50 +22,50 @@ export default function AboutMission() {
       scrollTrigger: {
         trigger: sectionRef.current,
         start: 'top top',
-        end: '+=160%',
+        end: '+=130%',
         pin: true,
         scrub: 0.8,
         anticipatePin: 1,
       },
     });
 
-    // Phrase 1: "To be recognised globally" enters from left with horizontal glide
+    // Phrase 1: "To be recognised globally" glides gently from left
     tl.fromTo(
       phrase1Ref.current,
-      { xPercent: -40, opacity: 0 },
-      { xPercent: 0, opacity: 1, ease: 'power2.out', duration: 1 }
+      { x: -35, opacity: 0 },
+      { x: 0, opacity: 1, ease: 'power2.out', duration: 1 }
     )
-    // Phrase 2: "not just as an exporter" enters from right
+    // Phrase 2: "not just as an exporter" glides gently from right
     .fromTo(
       phrase2Ref.current,
-      { xPercent: 40, opacity: 0 },
-      { xPercent: 0, opacity: 1, ease: 'power2.out', duration: 1 },
+      { x: 35, opacity: 0 },
+      { x: 0, opacity: 1, ease: 'power2.out', duration: 1 },
       '-=0.6'
     )
-    // Phrase 3: "but as a genuine manufacturer of stationery items" sweeps upward from depth
+    // Phrase 3: "but as a genuine manufacturer of stationery items" sweeps upward with depth scale
     .fromTo(
       phrase3Ref.current,
-      { yPercent: 60, scale: 0.95, opacity: 0 },
-      { yPercent: 0, scale: 1, opacity: 1, ease: 'power3.out', duration: 1.2 },
+      { y: 30, scale: 0.96, opacity: 0 },
+      { y: 0, scale: 1, opacity: 1, ease: 'power3.out', duration: 1.2 },
       '-=0.5'
     )
     // Dwell hold: All 3 phrases locked in center reading alignment
-    .to({}, { duration: 0.8 })
-    // Phrases gently drift upward and apart to reveal the 3 supporting strategic pillars
+    .to({}, { duration: 0.6 })
+    // Phrases gently drift to reveal the 3 supporting strategic pillars
     .to(
       [phrase1Ref.current, phrase2Ref.current],
-      { yPercent: -30, opacity: 0.45, ease: 'power2.inOut', duration: 1 }
+      { y: -12, opacity: 0.55, ease: 'power2.inOut', duration: 0.8 }
     )
     .to(
       phrase3Ref.current,
-      { yPercent: -20, color: '#C9A24A', ease: 'power2.inOut', duration: 1 },
+      { y: -8, color: '#C9A24A', ease: 'power2.inOut', duration: 0.8 },
       '<'
     )
     // Pillars reveal: Staggered entry from bottom with line expansion
     .fromTo(
       pillarsRef.current?.children || [],
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, stagger: 0.25, ease: 'power3.out', duration: 1.2 },
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, stagger: 0.2, ease: 'power3.out', duration: 1 },
       '-=0.4'
     );
   }, { scope: sectionRef });

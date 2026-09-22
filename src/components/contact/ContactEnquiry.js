@@ -190,9 +190,9 @@ export default function ContactEnquiry() {
                 <p className={styles.confirmMessage}>
                   Thank you for contacting Twofold Paper Stationery. Our export management desk in Palghar has received your notebook specifications and will reach out shortly with quotation schedules and sample terms.
                 </p>
-                <button type="button" className={styles.newEnquiryBtn} onClick={handleReset} suppressHydrationWarning>
-                  Submit Another Enquiry →
-                </button>
+                <Button type="button" variant="primary" hasArrow onClick={handleReset}>
+                  Submit Another Enquiry
+                </Button>
               </div>
             ) : (
               <form className={styles.documentForm} onSubmit={handleSubmit} suppressHydrationWarning>

@@ -4,45 +4,40 @@ import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { gsap } from '@/lib/gsap';
+import Button from '@/components/ui/Button';
 import { useSound } from '@/providers/SoundEffectsProvider';
 import styles from './Navbar.module.css';
 
 const NAV_ITEMS = [
-  { index: '01', name: 'Home', path: '/' },
-  { index: '02', name: 'About Us', path: '/about-us' },
-  { index: '03', name: 'Products', path: '/products' },
-  { index: '04', name: 'Blog & Insights', path: '/blog' },
-  { index: '05', name: 'Contact Us', path: '/contact-us' },
+  { name: 'Home', path: '/' },
+  { name: 'About Us', path: '/about-us' },
+  { name: 'Products', path: '/products' },
+  { name: 'Blog', path: '/blog' },
+  { name: 'Contact Us', path: '/contact-us' },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   const { playDrawerOpen, playDrawerClose } = useSound();
-
   const pathname = usePathname();
   const lastScrollY = useRef(0);
-  const drawerRef = useRef(null);
-  const navLinksRef = useRef(null);
 
-  // ── Headroom Scroll Behavior & Theme Detection ──
+  // ── Scroll Listener ──
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      if (currentScrollY > 40) {
+      if (currentScrollY > 30) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
 
-      // Hide when scrolling down, show when scrolling up (only when drawer is closed)
       if (!isOpen) {
-        if (currentScrollY > 120 && currentScrollY > lastScrollY.current) {
+        if (currentScrollY > 150 && currentScrollY > lastScrollY.current) {
           setIsVisible(false);
         } else {
           setIsVisible(true);
@@ -50,18 +45,6 @@ export default function Navbar() {
       }
 
       lastScrollY.current = currentScrollY;
-
-      // Detect if floating navbar sits over a dark section (e.g. Why Buyers Choose Twofold)
-      const darkElements = document.querySelectorAll('[data-theme="dark"], #why-twofold');
-      const headerHeight = 84;
-      let overDark = false;
-      darkElements.forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= headerHeight && rect.bottom >= 0) {
-          overDark = true;
-        }
-      });
-      setIsDarkTheme(overDark);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -73,15 +56,6 @@ export default function Navbar() {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-
-      // GSAP staggered entrance animation for drawer items
-      if (navLinksRef.current) {
-        const items = navLinksRef.current.querySelectorAll(`.${styles.navLink}`);
-        gsap.fromTo(items,
-          { y: 45, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.5, stagger: 0.07, ease: 'power3.out', delay: 0.12 }
-        );
-      }
     } else {
       document.body.style.overflow = '';
     }
@@ -106,76 +80,122 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── Fixed Minimalist Header ── */}
+      {/* ── Desktop & Mobile Header Bar ── */}
       <header
         className={`
           ${styles.header}
           ${isOpen || isVisible ? styles.headerVisible : styles.headerHidden}
           ${isScrolled && !isOpen ? styles.headerScrolled : ''}
-          ${isDarkTheme && !isOpen ? styles.headerDark : ''}
           ${isOpen ? styles.headerOpen : ''}
         `}
       >
-        {/* Left: Two Fold official brand logo */}
-        <Link href="/" className={styles.linkLogo} aria-label="Twofold Home" onClick={() => setIsOpen(false)}>
-          <Image
-            src="/Logo/Two Fold.png"
-            alt="Twofold"
-            width={110}
-            height={34}
-            className={styles.brandLogoImg}
-            priority
-          />
-        </Link>
+        <div className={styles.headerInner}>
 
-        {/* Right: Unified 2-Line Morphing Toggle Button (No title/text) */}
-        <button
-          className={`${styles.menuToggle} ${isOpen ? styles.menuToggleOpen : ''}`}
-          onClick={() => {
-            if (isOpen) {
-              playDrawerClose();
-              setIsOpen(false);
-            } else {
-              playDrawerOpen();
-              setIsOpen(true);
-            }
-          }}
-          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-          aria-expanded={isOpen}
-          suppressHydrationWarning
-        >
-          <span className={styles.line} />
-          <span className={styles.line} />
-        </button>
+          {/* Left: Two Fold Official Brand Logo */}
+          <Link href="/" className={styles.linkLogo} aria-label="Twofold Home" onClick={() => setIsOpen(false)}>
+            <Image
+              src="/Logo/Two Fold.png"
+              alt="Twofold"
+              width={120}
+              height={36}
+              className={styles.brandLogoImg}
+              priority
+            />
+          </Link>
+
+          {/* Center: Desktop Horizontal Navigation Links */}
+          <nav className={styles.desktopNav} aria-label="Main Navigation">
+            <ul className={styles.desktopNavList}>
+              {NAV_ITEMS.map((item) => {
+                const isActive = pathname === item.path || (item.path !== '/' && pathname.startsWith(item.path));
+                return (
+                  <li key={item.path}>
+                    <Link
+                      href={item.path}
+                      className={`${styles.desktopNavLink} ${isActive ? styles.activeLink : ''}`}
+                    >
+                      <span>{item.name}</span>
+                      {isActive && <span className={styles.activeDot} />}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+
+          {/* Right: CTA Button & Mobile Menu Toggle */}
+          <div className={styles.rightActions}>
+            <Button
+              href="/contact-us"
+              variant="primary"
+              size="small"
+              hasArrow
+            >
+              Partner With Us
+            </Button>
+
+            {/* Mobile Hamburger Toggle Button */}
+            <button
+              className={`${styles.mobileMenuToggle} ${isOpen ? styles.menuToggleOpen : ''}`}
+              onClick={() => {
+                if (isOpen) {
+                  playDrawerClose?.();
+                  setIsOpen(false);
+                } else {
+                  playDrawerOpen?.();
+                  setIsOpen(true);
+                }
+              }}
+              aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={isOpen}
+              suppressHydrationWarning
+            >
+              <span className={styles.line} />
+              <span className={styles.line} />
+            </button>
+          </div>
+
+        </div>
       </header>
 
-      {/* ── Fullscreen Editorial Navigation Drawer ── */}
+      {/* ── Mobile Navigation Drawer ── */}
       <div
-        className={`${styles.drawer} ${isOpen ? styles.drawerOpen : ''}`}
-        ref={drawerRef}
+        className={`${styles.mobileDrawer} ${isOpen ? styles.drawerOpen : ''}`}
         role="dialog"
         aria-modal="true"
-        aria-label="Navigation Menu"
+        aria-label="Mobile Navigation Menu"
       >
-        {/* Drawer Main Content */}
-        <div className={styles.drawerContent}>
-          <ul className={styles.navLinks} ref={navLinksRef}>
-            {NAV_ITEMS.map((item) => (
-              <li key={item.path} className={styles.navItem}>
+        <div className={styles.drawerInner}>
+          <ul className={styles.mobileNavLinks}>
+            {NAV_ITEMS.map((item, idx) => (
+              <li key={item.path} className={styles.mobileNavItem}>
                 <Link
                   href={item.path}
-                  className={styles.navLink}
+                  className={styles.mobileNavLink}
                   onClick={() => {
-                    playDrawerClose();
+                    playDrawerClose?.();
                     setIsOpen(false);
                   }}
                 >
-                  <span className={styles.navLinkIndex}>{item.index}</span>
-                  <span className={styles.navLinkText}>{item.name}</span>
+                  <span className={styles.mobileIndex}>0{idx + 1}</span>
+                  <span className={styles.mobileText}>{item.name}</span>
                 </Link>
               </li>
             ))}
           </ul>
+
+          <div className={styles.drawerFooter}>
+            <Button
+              href="/contact-us"
+              variant="primary"
+              size="default"
+              fullWidth
+              hasArrow
+              onClick={() => setIsOpen(false)}
+            >
+              Request a Quote
+            </Button>
+          </div>
         </div>
       </div>
     </>

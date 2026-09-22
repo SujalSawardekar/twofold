@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Button from '@/components/ui/Button';
 import styles from './AboutCTA.module.css';
 
 export default function AboutCTA() {
@@ -23,14 +24,13 @@ export default function AboutCTA() {
           </p>
 
           <div className={styles.btnRow}>
-            <Link href="/products" className={styles.primaryBtn}>
-              <span>Learn About Our Products</span>
-              <span className={styles.arrow}>→</span>
-            </Link>
+            <Button href="/products" variant="white" size="large" hasArrow>
+              Learn About Our Products
+            </Button>
 
-            <Link href="/contact-us" className={styles.secondaryBtn}>
-              <span>Get in Touch</span>
-            </Link>
+            <Button href="/contact-us" variant="outline-white" size="large">
+              Get in Touch
+            </Button>
           </div>
 
           <div className={styles.footerDetails}>

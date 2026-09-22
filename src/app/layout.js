@@ -41,7 +41,7 @@ export default function RootLayout({ children }) {
         <SoundEffectsProvider>
           <SmoothScrollProvider>
             <Navbar />
-            <main>{children}</main>
+            {children}
             <Footer />
             <SoundToggle />
           </SmoothScrollProvider>
