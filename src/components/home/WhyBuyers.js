@@ -236,7 +236,7 @@ export default function WhyBuyers() {
       if (tl.scrollTrigger) tl.scrollTrigger.kill();
       tl.kill();
     };
-  }, []);
+  }, { scope: sectionRef });
 
   return (
     <section

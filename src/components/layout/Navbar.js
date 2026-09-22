@@ -80,31 +80,33 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── Desktop & Mobile Floating Capsule Header ── */}
+      {/* ── Full-Width Navigation Bar ── */}
       <header
         className={`
           ${styles.header}
           ${isOpen || isVisible ? styles.headerVisible : styles.headerHidden}
-          ${isScrolled && !isOpen ? styles.headerScrolled : ''}
+          ${isScrolled ? styles.headerScrolled : ''}
           ${isOpen ? styles.headerOpen : ''}
         `}
       >
-        <div className={styles.navbarCapsule}>
+        <div className={styles.headerContainer}>
 
-          {/* Left: Two Fold Official Brand Logo (Inverted to Pure White on Dark Capsule) */}
-          <Link href="/" className={styles.linkLogo} aria-label="Twofold Home" onClick={() => setIsOpen(false)}>
-            <Image
-              src="/Logo/Two Fold.png"
-              alt="Twofold"
-              width={105}
-              height={30}
-              className={styles.brandLogoImg}
-              priority
-            />
-          </Link>
+          {/* Left: Brand Logo */}
+          <div className={styles.navLeft}>
+            <Link href="/" className={styles.linkLogo} aria-label="Twofold Home" onClick={() => setIsOpen(false)}>
+              <Image
+                src="/Logo/Two Fold.png"
+                alt="Twofold"
+                width={120}
+                height={34}
+                className={styles.brandLogoImg}
+                priority
+              />
+            </Link>
+          </div>
 
           {/* Center: Horizontal Navigation Links */}
-          <nav className={styles.desktopNav} aria-label="Main Navigation">
+          <nav className={styles.navCenter} aria-label="Main Navigation">
             <ul className={styles.desktopNavList}>
               {NAV_ITEMS.map((item) => {
                 const isActive = pathname === item.path || (item.path !== '/' && pathname.startsWith(item.path));
@@ -114,8 +116,7 @@ export default function Navbar() {
                       href={item.path}
                       className={`${styles.desktopNavLink} ${isActive ? styles.activeLink : ''}`}
                     >
-                      <span>{item.name}</span>
-                      {isActive && <span className={styles.activeDot} />}
+                      {item.name}
                     </Link>
                   </li>
                 );
@@ -123,11 +124,35 @@ export default function Navbar() {
             </ul>
           </nav>
 
-          {/* Right: Embedded Cream-Gold Capsule CTA Button & Mobile Menu Toggle */}
-          <div className={styles.rightActions}>
+          {/* Right: Secondary Action & Pill CTA Button */}
+          <div className={styles.navRight}>
+            <Link
+              href="/products"
+              className={styles.secondaryAction}
+            >
+              <svg
+                className={styles.secondaryIcon}
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                <rect x="3" y="14" width="7" height="7" rx="1.5" />
+              </svg>
+              <span>Catalogue</span>
+            </Link>
+
             <Link
               href="/contact-us"
-              className={styles.capsuleCta}
+              className={styles.pillCta}
             >
               Partner With Us
             </Link>

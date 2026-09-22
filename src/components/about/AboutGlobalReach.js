@@ -138,7 +138,7 @@ export default function AboutGlobalReach() {
     });
 
     return () => {
-      trigger.kill();
+      trigger.kill(true);
     };
   }, { scope: sectionRef });
 

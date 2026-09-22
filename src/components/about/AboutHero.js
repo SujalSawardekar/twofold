@@ -19,15 +19,9 @@ export default function AboutHero() {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
     tl.fromTo(
-      `.${styles.eyebrow}`,
-      { y: 18, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, delay: 0.1 }
-    )
-    .fromTo(
       headlineRef.current,
       { y: 35, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.85 },
-      '-=0.4'
+      { y: 0, opacity: 1, duration: 0.85, delay: 0.1 }
     )
     .fromTo(
       `.${styles.subtitle}`,
@@ -70,8 +64,6 @@ export default function AboutHero() {
 
           {/* Left: Typographic Column */}
           <div className={styles.textCol}>
-            <span className={styles.eyebrow}>ABOUT TWOFOLD</span>
-
             <h1 className={styles.headline} ref={headlineRef}>
               About Us &amp;<br />
               <em>Infrastructure.</em>
