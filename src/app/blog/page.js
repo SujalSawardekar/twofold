@@ -19,8 +19,6 @@ const FEATURED_ARTICLE = {
   id: 'feat-1',
   tag: 'MANUFACTURING INSIGHT',
   category: 'Manufacturing',
-  date: 'September 2026',
-  readTime: '7 min read',
   title: 'How High-Volume Notebooks Are Manufactured: Inside Our Palghar Converting Facility',
   excerpt: 'From continuous reel-fed flexographic ruling and sub-millimeter cross-cutting to synchronized wire binding and moisture-barrier export bundling — an in-depth breakdown of container-scale stationery production.',
   image: '/images/editorial/palghar-converting-facility.jpg',
@@ -34,8 +32,6 @@ const CAROUSEL_ARTICLES = [
     category: 'Manufacturing',
     title: 'Twofold Expands Automated Converting Lines to Meet Global Export Demand Across 15+ Countries',
     image: '/images/editorial/facility.jpg',
-    date: 'Sep 2026',
-    readTime: '4 min read',
   },
   {
     id: 'c-2',
@@ -43,8 +39,6 @@ const CAROUSEL_ARTICLES = [
     category: 'Sourcing Guides',
     title: 'Spiral vs. Double Wire vs. Glue Bound: Choosing the Right Format for Your Distribution Channel',
     image: '/images/editorial/notebook-detail.jpg',
-    date: 'Aug 2026',
-    readTime: '6 min read',
   },
   {
     id: 'c-3',
@@ -52,8 +46,6 @@ const CAROUSEL_ARTICLES = [
     category: 'Quality Control',
     title: 'Understanding AQL 2.5 Sampling: How Pre-Dispatch Testing Eliminates Defect Risks for Importers',
     image: '/images/editorial/aql-inspection.jpg',
-    date: 'Jul 2026',
-    readTime: '5 min read',
   },
   {
     id: 'c-4',
@@ -61,8 +53,6 @@ const CAROUSEL_ARTICLES = [
     category: 'Export & Logistics',
     title: 'JNPT Seaport Gateway: Optimizing Transit Schedules for Full Container Load (FCL) Stationery Shipments',
     image: '/images/editorial/hero-factory.jpg',
-    date: 'Jul 2026',
-    readTime: '5 min read',
   },
   {
     id: 'c-5',
@@ -70,8 +60,6 @@ const CAROUSEL_ARTICLES = [
     category: 'Sustainability',
     title: 'FSC®-Certified Paper Substrates: Navigating Global Environmental Compliance in Modern Stationery',
     image: '/images/editorial/paper-vortex.jpg',
-    date: 'Jun 2026',
-    readTime: '6 min read',
   },
   {
     id: 'c-6',
@@ -79,8 +67,6 @@ const CAROUSEL_ARTICLES = [
     category: 'Manufacturing',
     title: 'Building Long-Term OEM Stationery Partnerships: Factory Direct vs. Intermediary Procurement',
     image: '/images/editorial/serve-brands.jpg',
-    date: 'May 2026',
-    readTime: '5 min read',
   },
 ];
 
@@ -92,8 +78,6 @@ const ALL_ARTICLES = [
     title: 'How Notebooks Are Manufactured: Inside Our Palghar Facility',
     excerpt: 'A behind-the-scenes look at the precision, automation, and scale involved in bulk notebook production.',
     image: '/images/editorial/facility.jpg',
-    date: 'Sep 2026',
-    readTime: '7 min read',
   },
   {
     id: 'a-2',
@@ -102,8 +86,6 @@ const ALL_ARTICLES = [
     title: 'Spiral vs Double Wire vs Glue Bound: Choosing the Right Notebook for Your Market',
     excerpt: 'Understanding binding durability, flat-lay mechanics, and pricing brackets for commercial stationery procurement.',
     image: '/images/editorial/notebook-detail.jpg',
-    date: 'Aug 2026',
-    readTime: '6 min read',
   },
   {
     id: 'a-3',
@@ -112,8 +94,6 @@ const ALL_ARTICLES = [
     title: 'What Is AQL, and Why It Matters When Sourcing Stationery in Bulk',
     excerpt: 'Learn how Acceptance Quality Level (AQL 2.5) sampling ensures zero surprises before container sealing.',
     image: '/images/editorial/aql-inspection.jpg',
-    date: 'Jul 2026',
-    readTime: '5 min read',
   },
   {
     id: 'a-4',
@@ -122,8 +102,6 @@ const ALL_ARTICLES = [
     title: 'Exporting from India: A Practical Guide for International Stationery Importers',
     excerpt: 'Key considerations on customs clearance, palletization, and Nhava Sheva (JNPT) container logistics.',
     image: '/images/editorial/serve-importers.jpg',
-    date: 'Jul 2026',
-    readTime: '8 min read',
   },
   {
     id: 'a-5',
@@ -132,8 +110,6 @@ const ALL_ARTICLES = [
     title: "Sourcing Exercise Books for Schools: A Wholesaler's Technical Guide",
     excerpt: 'Essential factors from ruling alignment to 54-80 GSM burst factor required for large educational programs.',
     image: '/images/editorial/serve-education.jpg',
-    date: 'Jun 2026',
-    readTime: '6 min read',
   },
   {
     id: 'a-6',
@@ -142,8 +118,6 @@ const ALL_ARTICLES = [
     title: "Why Nhava Sheva (JNPT) Is India's Premier Gateway for Paper Stationery Exports",
     excerpt: 'How 90-minute proximity to JNPT port cuts factory-to-vessel lead times and lowers container dwell periods.',
     image: '/images/editorial/hero-factory.jpg',
-    date: 'May 2026',
-    readTime: '4 min read',
   },
   {
     id: 'a-7',
@@ -152,8 +126,6 @@ const ALL_ARTICLES = [
     title: 'Sustainable Paper Packaging: Industry Trends Shaping Export Cartons & Wraps',
     excerpt: 'Exploring biodegradable moisture barriers, water-based inks, and recycled corrugated export packaging.',
     image: '/images/editorial/hero-journal.jpg',
-    date: 'Apr 2026',
-    readTime: '5 min read',
   },
   {
     id: 'a-8',
@@ -162,8 +134,6 @@ const ALL_ARTICLES = [
     title: 'Building Long-Term Supplier Partnerships in the Global Stationery Trade',
     excerpt: 'Why vertical manufacturing integration and direct paper mill heritage deliver price predictability.',
     image: '/images/editorial/serve-brands.jpg',
-    date: 'Mar 2026',
-    readTime: '6 min read',
   },
   {
     id: 'a-9',
@@ -172,8 +142,6 @@ const ALL_ARTICLES = [
     title: 'Grammage, Opacity & Bulk: A Buyer’s Guide to Specifying Woodfree Papers',
     excerpt: 'How to calculate optimal paper weights to balance fountain-pen ink bleed with freight efficiency.',
     image: '/images/editorial/story-spiral.jpg',
-    date: 'Feb 2026',
-    readTime: '7 min read',
   }
 ];
 
@@ -237,10 +205,6 @@ export default function BlogPage() {
             <div className={styles.featuredContentWrap}>
               <div className={styles.featuredMetaRow}>
                 <span className={styles.featuredTag}>{FEATURED_ARTICLE.tag}</span>
-                <span className={styles.metaDot}>•</span>
-                <span className={styles.featuredMetaText}>{FEATURED_ARTICLE.date}</span>
-                <span className={styles.metaDot}>•</span>
-                <span className={styles.featuredMetaText}>{FEATURED_ARTICLE.readTime}</span>
               </div>
 
               <h2 className={styles.featuredHeadline}>
@@ -262,13 +226,14 @@ export default function BlogPage() {
                   </div>
                 </div>
 
-                <Link href="#carousel-section" className={styles.readArticleBtn}>
-                  <span>Explore Guide</span>
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="2" y1="8" x2="14" y2="8" />
-                    <polyline points="9 3 14 8 9 13" />
-                  </svg>
-                </Link>
+                <Button
+                  href="#carousel-section"
+                  variant="primary"
+                  size="small"
+                  hasArrow
+                >
+                  Explore Guide
+                </Button>
               </div>
 
             </div>
@@ -345,11 +310,6 @@ export default function BlogPage() {
                   {/* Bottom Headline */}
                   <div className={styles.cardBottomRow}>
                     <h3 className={styles.cardHeadline}>{item.title}</h3>
-                    <div className={styles.cardMetaSub}>
-                      <span>{item.date}</span>
-                      <span>•</span>
-                      <span>{item.readTime}</span>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -401,12 +361,6 @@ export default function BlogPage() {
                 </div>
 
                 <div className={styles.gridCardBody}>
-                  <div className={styles.gridMetaRow}>
-                    <span className={styles.gridDate}>{article.date}</span>
-                    <span>•</span>
-                    <span className={styles.gridReadTime}>{article.readTime}</span>
-                  </div>
-
                   <h3 className={styles.gridCardTitle}>{article.title}</h3>
                   <p className={styles.gridCardExcerpt}>{article.excerpt}</p>
 

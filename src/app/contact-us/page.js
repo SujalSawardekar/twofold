@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import ContactFAQ from '@/components/contact/ContactFAQ';
-import ContactClosingCTA from '@/components/contact/ContactClosingCTA';
 import { useSound } from '@/providers/SoundEffectsProvider';
 import styles from './page.module.css';
 
@@ -240,13 +239,15 @@ function ContactContent() {
 
                   {/* Bottom: Solid High-Impact Submit Button */}
                   <div className={styles.formFooter}>
-                    <button
+                    <Button
                       type="submit"
                       disabled={submitting}
-                      className={styles.submitButton}
+                      variant="primary"
+                      size="default"
+                      fullWidth
                     >
                       {submitting ? 'DISPATCHING INQUIRY...' : 'SEND MESSAGE'}
-                    </button>
+                    </Button>
                   </div>
 
                 </form>
@@ -393,9 +394,6 @@ function ContactContent() {
 
       {/* ── 4. Common Procurement FAQs Accordion ── */}
       <ContactFAQ />
-
-      {/* ── 5. Closing B2B Call to Action ── */}
-      <ContactClosingCTA />
 
     </main>
   );

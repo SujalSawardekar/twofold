@@ -150,12 +150,13 @@ export default function Navbar() {
               <span>Catalogue</span>
             </Link>
 
-            <Link
+            <Button
               href="/contact-us"
-              className={styles.pillCta}
+              variant="primary"
+              size="small"
             >
               Partner With Us
-            </Link>
+            </Button>
 
             {/* Mobile Hamburger Toggle Button */}
             <button
@@ -216,7 +217,7 @@ export default function Navbar() {
               hasArrow
               onClick={() => setIsOpen(false)}
             >
-              Request a Quote
+              Partner With Us
             </Button>
           </div>
         </div>
