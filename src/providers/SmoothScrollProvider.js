@@ -1,11 +1,13 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import Lenis from 'lenis';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 export default function SmoothScrollProvider({ children }) {
   const lenisRef = useRef(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -36,5 +38,28 @@ export default function SmoothScrollProvider({ children }) {
     };
   }, []);
 
+  // ── Scroll to Top & Refresh ScrollTrigger on Route Change ──
+  useEffect(() => {
+    // Reset body overflow in case drawer or modal locked it
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = '';
+    }
+
+    // Scroll to top immediately
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    } else if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
+
+    // Recalculate ScrollTrigger measurements after DOM update
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 120);
+
+    return () => clearTimeout(timer);
+  }, [pathname]);
+
   return <>{children}</>;
 }
+

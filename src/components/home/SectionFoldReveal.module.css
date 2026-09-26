@@ -1,0 +1,137 @@
+/* ═══════════════════════════════════════════════════════════════
+   TWOFOLD — SECTION FOLD REVEAL
+   Scroll-triggered gate-fold: two panels hinge at the section's
+   vertical center (the crease), opening on scroll to reveal the
+   section content beneath. Lighter-weight than the full-viewport
+   HomeFoldIntro — same language, smaller travel distance.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Wrapper: positioning context for the absolute panels ── */
+.wrapper {
+  position: relative;
+  /*
+   * No overflow: hidden — panels rotate inward (shrink toward their
+   * hinge) so they never overflow the wrapper's bounds.
+   * Adding overflow:hidden would also clip perspective 3D children
+   * in some browsers, which we specifically want to avoid.
+   */
+}
+
+/* ── Perspective box: covers the full wrapper, parents the panels ── */
+/*
+ * Perspective is placed here (not on .wrapper) to keep it isolated
+ * from children's stacking contexts. pointer-events:none so it never
+ * blocks clicks on the underlying section content.
+ */
+.perspectiveBox {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+
+  /*
+   * Slightly lower perspective value than the HomeFoldIntro (1600px)
+   * so in-page section folds read as a proportionally deeper fold
+   * — sections are shorter than the full viewport so the same px
+   * value would appear flatter.
+   */
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+}
+
+/* ── Top panel: upper half of section — HINGES AT BOTTOM EDGE (crease) ── */
+.panelTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background-color: var(--color-warm-white, #FAF8F5);
+
+  /*
+   * transform-origin: center bottom
+   * Hinge = bottom edge of this panel = vertical center of section = crease.
+   * rotateX(-92deg) → top edge swings backward/upward away from viewer.
+   */
+  transform-origin: center bottom;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ── Bottom panel: lower half of section — HINGES AT TOP EDGE (crease) ── */
+.panelBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background-color: var(--color-warm-white, #FAF8F5);
+
+  /*
+   * transform-origin: center top
+   * Hinge = top edge of this panel = vertical center of section = crease.
+   * rotateX(92deg) → bottom edge swings backward/downward away from viewer.
+   */
+  transform-origin: center top;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Paper noise — same SVG technique as HomeFoldIntro + FoldExperience */
+.panelTop::after,
+.panelBottom::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── 1px crease line (center of perspectiveBox, flat in screen space) ── */
+/*
+ * Not a child of either panel — has no 3D transform and stays flat
+ * throughout the animation, providing the crease reference.
+ */
+.creaseLine {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform: translateY(-0.5px);
+  background: rgba(27, 42, 74, 0.10);
+  box-shadow:
+    0  1px 3px rgba(27, 42, 74, 0.05),
+    0 -1px 2px rgba(27, 42, 74, 0.03);
+  z-index: 2;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE (≤ 768px) — 2D fallback
+   Panels translate out instead of rotating. Avoids 3D jank.
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .perspectiveBox {
+    perspective: none;
+  }
+
+  .panelTop,
+  .panelBottom {
+    transform-style: flat;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   REDUCED MOTION — CSS guard (JS also bails early)
+   ══════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .perspectiveBox {
+    display: none !important;
+  }
+}

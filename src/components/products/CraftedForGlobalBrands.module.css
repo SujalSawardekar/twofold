@@ -1,0 +1,172 @@
+/* ═══════════════════════════════════════════════════════════════
+   TWOFOLD — CRAFTED FOR GLOBAL BRANDS (LIGHT EDITORIAL DESIGN)
+   Luxurious warm off-white paper canvas with gold & navy accents
+   ═══════════════════════════════════════════════════════════════ */
+
+.section {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(180deg, #FAF8F5 0%, #F4EFE6 35%, #F0EAE1 100%);
+  padding: clamp(6rem, 12vw, 10rem) 1.5rem clamp(5rem, 9vw, 8rem);
+  text-align: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-top: 1px solid rgba(17, 23, 45, 0.06);
+}
+
+.inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Blueprint Registration Corner Crosshairs ── */
+.cornerTL,
+.cornerTR,
+.cornerBL,
+.cornerBR {
+  position: absolute;
+  font-family: monospace;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: rgba(201, 162, 74, 0.45);
+  pointer-events: none;
+  user-select: none;
+}
+
+.cornerTL { top: 24px; left: 28px; }
+.cornerTR { top: 24px; right: 28px; }
+.cornerBL { bottom: 24px; left: 28px; }
+.cornerBR { bottom: 24px; right: 28px; }
+
+/* ── Top Pill / Badge ── */
+.pillWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: clamp(1.4rem, 2.8vw, 2.2rem);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: clamp(0.7rem, 0.85vw, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #11172D;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(201, 162, 74, 0.4);
+  padding: 0.5rem 1.4rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 20px rgba(17, 23, 45, 0.05),
+              0 1px 3px rgba(201, 162, 74, 0.12);
+}
+
+.goldDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #C9A24A;
+  box-shadow: 0 0 8px rgba(201, 162, 74, 0.8);
+  flex-shrink: 0;
+}
+
+/* ── Main Display Title ── */
+.headline {
+  font-family: var(--font-display, 'The youngest serif', Georgia, serif);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 5.8vw, 4.8rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: #11172D;
+  margin: 0 0 clamp(1.2rem, 2.4vw, 1.75rem);
+}
+
+.headline em {
+  font-style: italic;
+  font-family: var(--font-display, 'The youngest serif', Georgia, serif);
+  font-weight: 400;
+  color: #11172D;
+}
+
+/* ── Subtitle Body Text ── */
+.subtitle {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: clamp(1.05rem, 1.4vw, 1.28rem);
+  line-height: 1.65;
+  color: #4A5060;
+  max-width: 680px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+/* ── Micro Capability Spec Badges ── */
+.badgeRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(0.5rem, 1.2vw, 1rem);
+  margin-top: clamp(2rem, 3.5vw, 2.75rem);
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(17, 23, 45, 0.08);
+  border-radius: 12px;
+}
+
+.specBadge {
+  font-family: var(--font-body, 'Gramatika', sans-serif);
+  font-size: clamp(0.68rem, 0.8vw, 0.74rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #646E82;
+}
+
+.specDot {
+  color: #C9A24A;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* ── Mobile Responsive Adaptations ── */
+@media (max-width: 600px) {
+  .section {
+    padding: 4.5rem 1.25rem 4rem;
+  }
+
+  .cornerTL, .cornerTR, .cornerBL, .cornerBR {
+    display: none;
+  }
+
+  .pill {
+    padding: 0.45rem 1.15rem;
+    font-size: 0.66rem;
+  }
+
+  .headline {
+    font-size: 2.2rem;
+  }
+
+  .subtitle {
+    font-size: 0.98rem;
+  }
+
+  .badgeRow {
+    gap: 0.4rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .specBadge {
+    font-size: 0.62rem;
+  }
+}
